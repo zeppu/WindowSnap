@@ -1,0 +1,8 @@
+D:\Git\MMSnap\MMSnap\bin\Debug\MMSnap.exe.config
+D:\Git\MMSnap\MMSnap\bin\Debug\MMSnap.exe
+D:\Git\MMSnap\MMSnap\bin\Debug\MMSnap.pdb
+D:\Git\MMSnap\MMSnap\obj\Debug\MMSnap.csprojResolveAssemblyReference.cache
+D:\Git\MMSnap\MMSnap\obj\Debug\MMSnap.exe
+D:\Git\MMSnap\MMSnap\obj\Debug\MMSnap.pdb
+D:\Git\MMSnap\MMSnap\bin\Debug\Overlay.exe
+D:\Git\MMSnap\MMSnap\bin\Debug\Overlay.pdb
