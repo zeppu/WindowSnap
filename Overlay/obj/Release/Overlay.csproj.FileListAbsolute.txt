@@ -1,0 +1,8 @@
+D:\Git\MMSnap\Overlay\bin\Release\Overlay.exe.config
+D:\Git\MMSnap\Overlay\bin\Release\Overlay.exe
+D:\Git\MMSnap\Overlay\bin\Release\Overlay.pdb
+D:\Git\MMSnap\Overlay\obj\Release\Overlay.Form1.resources
+D:\Git\MMSnap\Overlay\obj\Release\Overlay.Properties.Resources.resources
+D:\Git\MMSnap\Overlay\obj\Release\Overlay.csproj.GenerateResource.Cache
+D:\Git\MMSnap\Overlay\obj\Release\Overlay.exe
+D:\Git\MMSnap\Overlay\obj\Release\Overlay.pdb

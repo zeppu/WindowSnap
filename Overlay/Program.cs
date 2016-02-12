@@ -68,7 +68,7 @@ namespace Overlay
         private static readonly WindowOptions options = new WindowOptions();
 
 
-        public const int WINDOW_PADDING_HEIGHT = 9;
+        public const int WINDOW_PADDING_HEIGHT = 0;
 
         private static void WinEventProc2(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
@@ -84,17 +84,33 @@ namespace Overlay
             form.Opacity = 0;
             Rectangle option = Rectangle.Empty;
 
-            if (Between(position.X, left + form.button2.Left, left + form.button2.Left + form.button2.Width))
+            if (Between(position.X, left + form.QuarterLeft.Left, left + form.QuarterLeft.Left + form.QuarterLeft.Width))
             {
                 option = options.Options["QuarterLeft"];
             }
-            if (Between(position.X, left + form.button1.Left, left + form.button1.Left + form.button1.Width))
+            if (Between(position.X, left + form.HalfCenter.Left, left + form.HalfCenter.Left + form.HalfCenter.Width))
             {
                 option = options.Options["Centered"];
             }
-            if (Between(position.X, left + form.button3.Left, left + form.button3.Left + form.button3.Width))
+            if (Between(position.X, left + form.QuarterRight.Left, left + form.QuarterRight.Left + form.QuarterRight.Width))
             {
                 option = options.Options["QuarterRight"];
+            }
+            if (Between(position.X, left + form.ThirdLeft.Left, left + form.ThirdLeft.Left + form.ThirdLeft.Width))
+            {
+                option = options.Options["1/3Left"];
+            }
+            if (Between(position.X, left + form.ThirdRight.Left, left + form.ThirdRight.Left + form.ThirdRight.Width))
+            {
+                option = options.Options["1/3Right"];
+            }
+            if (Between(position.X, left + form.TwoThirdLeft.Left, left + form.TwoThirdLeft.Left + form.TwoThirdLeft.Width))
+            {
+                option = options.Options["2/3Left"];
+            }
+            if (Between(position.X, left + form.TwoThirdRight.Left, left + form.TwoThirdRight.Left + form.TwoThirdRight.Width))
+            {
+                option = options.Options["2/3Right"];
             }
 
             if (option != Rectangle.Empty)
@@ -113,9 +129,13 @@ namespace Overlay
                 ScreenSize = Screen.PrimaryScreen.WorkingArea;
                 Options = new Dictionary<string, Rectangle>()
                 {
-                    {"Centered", new Rectangle(ScreenSize.Width/4,0, ScreenSize.Width/2, ScreenSize.Height)},
+                    { "Centered", new Rectangle(ScreenSize.Width/4,0, ScreenSize.Width/2, ScreenSize.Height)},
                     { "QuarterLeft", new Rectangle(0, 0, ScreenSize.Width/4, ScreenSize.Height) },
                     { "QuarterRight", new Rectangle(ScreenSize.Width*3/4, 0, ScreenSize.Width/4, ScreenSize.Height) },
+                    { "2/3Left", new Rectangle(0, 0, ScreenSize.Width*2/3, ScreenSize.Height) },
+                    { "2/3Right", new Rectangle(ScreenSize.Width*1/3, 0, ScreenSize.Width*2/3, ScreenSize.Height) },
+                    { "1/3Left", new Rectangle(0, 0, ScreenSize.Width*1/3, ScreenSize.Height) },
+                    { "1/3Right", new Rectangle(ScreenSize.Width*2/3, 0, ScreenSize.Width*1/3, ScreenSize.Height) },
                 };
             }
 
