@@ -102,12 +102,15 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\Bootstrapper.cs" />
+    <Compile Include="Core\Hooks\IWinEventHookManager.cs" />
     <Compile Include="Core\IUserNotificationService.cs" />
     <Compile Include="Core\ServiceProviderExtensions.cs" />
     <Compile Include="Core\SystemTray\ISystemTrayNotificationService.cs" />
     <Compile Include="Core\SystemTray\ISystemTrayService.cs" />
     <Compile Include="Core\SystemTray\SystemTrayNotificationService.cs" />
     <Compile Include="Core\SystemTray\SystemTrayService.cs" />
+    <Compile Include="Core\WindowOptions.cs" />
+    <Compile Include="Core\WindowSizes.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,7 +120,9 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Messages\HideOverlayMessage.cs" />
     <Compile Include="Messages\ShowAboutBoxMessage.cs" />
+    <Compile Include="Messages\ShowOverlayMessage.cs" />
     <Compile Include="Messages\TerminateAppMessage.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\ModifierKeys.cs" />

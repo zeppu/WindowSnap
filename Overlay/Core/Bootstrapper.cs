@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Windows;
+using System.Windows.Forms;
+using Overlay.Core.Hooks;
 using Overlay.Core.SystemTray;
 using Overlay.Messages;
 using Overlay.ViewModels;
 using Overlay.Views;
 using ReactiveUI;
 using SimpleInjector;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Overlay.Core
 {
@@ -14,6 +17,7 @@ namespace Overlay.Core
         //private static readonly Expression<Action<Container>> ContainerRegisterAction = (c) => c.Register<object, object>();
 
         private readonly Application _application;
+        private Form1 _overlayForm;
 
         public Bootstrapper(Application application)
         {
@@ -22,20 +26,7 @@ namespace Overlay.Core
 
         public void Start()
         {
-            var c = new Container();
-
-
-            c.RegisterSingleton<IServiceProvider>(c);
-
-            c.Register<IMainViewModel, MainViewModel>();
-            c.Register<MainWindow>();
-
-            c.Register<IAboutViewModel, AboutViewModel>();
-            c.Register<AboutWindow>();
-
-            c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
-            c.Register<ISystemTrayNotificationService, SystemTrayNotificationService>();
-
+            var c = Build();
 
             // setup message router
             MessageBus.Current.Listen<ShowAboutBoxMessage>().Subscribe(message =>
@@ -48,7 +39,25 @@ namespace Overlay.Core
                 _application.Shutdown(0);
             });
 
+            MessageBus.Current.Listen<HideOverlayMessage>()
+                .Subscribe(message =>
+                {
+                    _overlayForm.Opacity = 0;
+                });
+            MessageBus.Current.Listen<ShowOverlayMessage>()
+                .Subscribe(message =>
+                {
+                    _overlayForm.Opacity = 100;
+                });
 
+            // setup hooks
+            _overlayForm = c.Get<Form1>();
+            _overlayForm.Top = 0;
+            _overlayForm.Left = 0;
+            _overlayForm.Height = 250;
+            _overlayForm.Width = Screen.PrimaryScreen.WorkingArea.Width;
+            _overlayForm.Visible = true;
+            c.Get<IWinEventHookManager>().Start();
 
             // setup system tray
             var systemTray = c.Get<ISystemTrayService>();
@@ -57,6 +66,27 @@ namespace Overlay.Core
             systemTray.AddMenuItem<TerminateAppMessage>("Exit", null);
             systemTray.SetIcon(new Uri("pack://application:,,,/Assets/App.ico"));
             systemTray.Show();
+        }
+
+        private static Container Build()
+        {
+            var c = new Container();
+
+            c.RegisterSingleton<IServiceProvider>(c);
+
+            c.Register<IMainViewModel, MainViewModel>();
+            c.Register<MainWindow>();
+
+            c.Register<IAboutViewModel, AboutViewModel>();
+            c.Register<AboutWindow>();
+
+            c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
+            c.Register<ISystemTrayNotificationService, SystemTrayNotificationService>();
+
+            c.RegisterSingleton<Form1>();
+
+            c.RegisterSingleton<IWinEventHookManager, WinEventHookManager>();
+            return c;
         }
 
         public void Dispose()

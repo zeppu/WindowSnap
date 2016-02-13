@@ -30,5 +30,14 @@ namespace Overlay.Native
 
         [DllImport("user32.dll")]
         internal static extern bool UnhookWinEvent(IntPtr hWinEventHook);
+
+        public static class Constants
+        {
+            public const uint EVENT_SYSTEM_MOVESIZESTART = 0x000A;
+            public const uint EVENT_SYSTEM_MOVESIZEEND = 0x000B;
+            public const uint WINEVENT_OUTOFCONTEXT = 0;
+            public const int WINDOW_PADDING_HEIGHT = 0;
+
+        }
     }
 }
