@@ -1,0 +1,26 @@
+﻿using System.Windows;
+using Overlay.Core;
+
+namespace Overlay
+{
+    /// <summary>
+    /// Interaction logic for App.xaml
+    /// </summary>
+    public partial class App : Application
+    {
+        private Bootstrapper _bootstrapper;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            _bootstrapper = new Bootstrapper(this);
+            _bootstrapper.Start();
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _bootstrapper.Dispose();
+
+            base.OnExit(e);
+        }
+    }
+}
