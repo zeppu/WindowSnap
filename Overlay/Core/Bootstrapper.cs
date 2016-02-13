@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Windows.Interop;
 using Overlay.Core.Hooks;
+using Overlay.Core.Hotkeys;
 using Overlay.Core.SystemTray;
 using Overlay.Messages;
 using Overlay.ViewModels;
@@ -86,6 +88,8 @@ namespace Overlay.Core
             c.RegisterSingleton<Form1>();
 
             c.RegisterSingleton<IWinEventHookManager, WinEventHookManager>();
+
+            c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
             return c;
         }
 

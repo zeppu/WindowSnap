@@ -103,6 +103,8 @@
     </Compile>
     <Compile Include="Core\Bootstrapper.cs" />
     <Compile Include="Core\Hooks\IWinEventHookManager.cs" />
+    <Compile Include="Core\Hotkeys\Hotkey.cs" />
+    <Compile Include="Core\Hotkeys\HotkeyManager.cs" />
     <Compile Include="Core\IUserNotificationService.cs" />
     <Compile Include="Core\ServiceProviderExtensions.cs" />
     <Compile Include="Core\SystemTray\ISystemTrayNotificationService.cs" />

@@ -19,8 +19,10 @@ namespace Overlay
         protected override void OnExit(ExitEventArgs e)
         {
             _bootstrapper.Dispose();
-
+            
             base.OnExit(e);
         }
+
+        
     }
 }
