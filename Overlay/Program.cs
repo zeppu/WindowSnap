@@ -114,7 +114,11 @@ namespace Overlay
             }
 
             if (option != Rectangle.Empty)
-                SetWindowPos(hwnd, IntPtr.Zero, option.X, option.Y, option.Width + WINDOW_PADDING_HEIGHT, option.Height + WINDOW_PADDING_HEIGHT, SetWindowPosFlags.IgnoreZOrder);
+            {
+                NLog.LogManager.GetCurrentClassLogger().Info($"Setting window position - x: {option.X}; y: {option.Y}; width: {option.Width}; height: {option.Height}");
+                SetWindowPos(hwnd, IntPtr.Zero, option.X, option.Y, option.Width + WINDOW_PADDING_HEIGHT,
+                    option.Height + WINDOW_PADDING_HEIGHT, SetWindowPosFlags.IgnoreZOrder);
+            }
 
         }
 
