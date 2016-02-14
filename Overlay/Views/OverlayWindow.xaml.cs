@@ -30,9 +30,7 @@ namespace Overlay.Views
 
         private void OverlayWindow_OnIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            Top = 0;
-            Left = 0;
-            Width = Screen.PrimaryScreen.Bounds.Width;
+
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Forms;
+using Overlay.Core.Configuration;
+using Overlay.Core.Configuration.Model;
 using Overlay.Views;
 
 namespace Overlay.Core
@@ -14,42 +18,71 @@ namespace Overlay.Core
     class OverlayManager : IOverlayManager
     {
         private readonly IServiceProvider _serviceProvider;
-        private OverlayWindow _overlayWindow;
+        private readonly IConfigurationService _configurationService;
+        private readonly List<Window> _overlay = new List<Window>();
 
-        public OverlayManager(IServiceProvider serviceProvider)
+        public OverlayManager(IServiceProvider serviceProvider, IConfigurationService configurationService)
         {
             _serviceProvider = serviceProvider;
-            _overlayWindow = null;
+            _configurationService = configurationService;
         }
 
         public void ShowOverlay()
         {
-            if (_overlayWindow != null)
+            if (_overlay.Count != 0)
             {
-                if (_overlayWindow.IsVisible)
-                {
-                    // possibly a double call to ShowOverlay()
-                    return;
-                }
 
                 // close current overlay window, we will recreate it eitherway
-                _overlayWindow.Close();
-                _overlayWindow = null;
+                _overlay.ForEach(w => w.Close());
+                _overlay.Clear();
             }
 
-            _overlayWindow = _serviceProvider.Get<OverlayWindow>();
-            _overlayWindow.Visibility = Visibility.Visible;
 
+            var offsetX = 0.0;
+            var layout = _configurationService.GetActiveLayout();
+            foreach (var area in layout.Areas)
+            {
+                var w = _serviceProvider.Get<OverlayWindow>();
+                _overlay.Add(w);
+
+                w.Top = 50;
+                var column = area as Column;
+                if (column != null)
+                {
+                    var screenWidth = ConverMeasurementToScreenWidth(column.Width);
+                    w.Left = (offsetX + (screenWidth / 2.0)) - 50;
+                    offsetX += screenWidth;
+                }
+
+                w.Show();
+            }
+
+        }
+
+        private double ConverMeasurementToScreenWidth(Measurement m)
+        {
+            switch (m.Unit)
+            {
+                case MeasurementUnit.Percentage:
+                    return ((m.Value / 100) * Screen.PrimaryScreen.Bounds.Width);
+                    break;
+                case MeasurementUnit.Pixels:
+                    return m.Value;
+                    break;
+            }
+
+            throw new InvalidOperationException();
         }
 
         public void HideOverlay()
         {
-            if (_overlayWindow == null)
-                return;
+            _overlay.ForEach(w =>
+            {
+                w.Hide();
+                w.Close();
+            });
 
-            _overlayWindow.Visibility = Visibility.Hidden;
-            _overlayWindow.Close();
-            _overlayWindow = null;
+            _overlay.Clear();
         }
     }
 }

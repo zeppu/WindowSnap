@@ -6,79 +6,14 @@
         xmlns:local="clr-namespace:Overlay.Views"
         xmlns:viewModels="clr-namespace:Overlay.ViewModels"
         mc:Ignorable="d"
-        Title="OverlayWindow" Height="100" Width="1087" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged"
-        d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" BorderThickness="0"
+        Title="OverlayWindow" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged"
+        d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="{x:Null}"
         >
-    <Window.Resources>
-        <SolidColorBrush x:Key="Item.MouseOver.Background" Color="Red"/>
-        <SolidColorBrush x:Key="Item.MouseOver.Border" Color="Red"/>
-    </Window.Resources>
-    <Grid>
-        <Grid.Resources>
-
-        </Grid.Resources>
-        <ListBox ItemsSource="{Binding Path=Areas}" HorizontalAlignment="Left" HorizontalContentAlignment="Center"  >
-            <!-- 
-            The template below alters the way a listbox is displayed.  By default, a listbox is visually described as a border 
-            with a scrollviewer hosting an items presenter (an indicator where the items will be rendered).  
-            By overriding this and replacing the template with a simpler variant (we only want to display the areas 
-            defined in the view model after all) we get rid of any 
-            scrolling functionality.            
-            -->
-            <ListBox.Template>
-                <ControlTemplate>
-                    <ItemsPresenter></ItemsPresenter>
-                </ControlTemplate>
-            </ListBox.Template>
-            <!-- 
-            ItemsPanel tells the listbox control what to use to host the ListBoxItems
-            -->
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel CanHorizontallyScroll="False" CanVerticallyScroll="False" Orientation="Horizontal" HorizontalAlignment="Left" Background="Purple"></StackPanel>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <!-- Template defining the content of a listbox item-->
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="viewModels:AreaViewModel">
-                    <Border Padding="0">
-                        <TextBlock Text="{Binding Path=Name}">
-
-                        </TextBlock>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="SnapsToDevicePixels" Value="True"/>
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Width" Value="{Binding Path=Width}"></Setter>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <MultiTrigger>
-                                        <MultiTrigger.Conditions>
-                                            <Condition Property="IsMouseOver" Value="True"/>
-                                        </MultiTrigger.Conditions>
-                                        <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
-                                        <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
-                                    </MultiTrigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
-
-    </Grid>
+    <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
+        <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="#FFF14200" StrokeThickness="3" Fill="#FFFB7E02" Width="100" Height="100" Canvas.Left="1" Canvas.Top="1" />
+        <Rectangle Height="28" Canvas.Left="25" Stroke="White" Canvas.Top="27" Width="15"/>
+        <Rectangle Height="28" Canvas.Left="60" Stroke="White" Canvas.Top="27" Width="15"/>
+        <Rectangle Height="28" Canvas.Left="40" Stroke="White" Canvas.Top="27" Width="20" Fill="#FFAAAAAA"/>
+        <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="55" Width="84" TextAlignment="Center" Foreground="White"/>
+    </Canvas>
 </Window>

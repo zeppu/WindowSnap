@@ -8,21 +8,16 @@ namespace Overlay.ViewModels
 {
     public class OverlayViewModel : ReactiveObject, IOverlayViewModel
     {
-        public ObservableCollection<AreaViewModel> Areas { get; set; }
 
-        public OverlayViewModel(IConfigurationService configurationService)
+
+        public OverlayViewModel()
         {
-            Areas = new ObservableCollection<AreaViewModel>(
-                configurationService.GetActiveLayout().Areas.Cast<Column>().Select(area => new AreaViewModel()
-                {
-                    Name = area.Name,
-                    Width = area.Width
-                }));
+
         }
     }
 
     public interface IOverlayViewModel
     {
-        ObservableCollection<AreaViewModel> Areas { get; }
+
     }
 }
