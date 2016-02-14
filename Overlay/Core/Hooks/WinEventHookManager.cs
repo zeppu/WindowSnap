@@ -22,8 +22,9 @@ namespace Overlay.Core.Hooks
             _configurationService = configurationService;
             //_form = form;
 
-            _endMoveDelegate = WinEventProc;
-            _startMoveDelegate = WinEventProc2;
+            _endMoveDelegate = WindowDragEnd;
+            _startMoveDelegate = WindowDragBegin;
+
         }
 
         public void Dispose()
@@ -41,12 +42,12 @@ namespace Overlay.Core.Hooks
                 _startMoveDelegate, 0, 0, User32.Constants.WINEVENT_OUTOFCONTEXT);
         }
 
-        private void WinEventProc2(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
+        private void WindowDragBegin(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
             MessageBus.Current.SendMessage(new ShowOverlayMessage());
         }
 
-        private void WinEventProc(IntPtr hWinEventHook, uint eventType,
+        private void WindowDragEnd(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
             //var position = Cursor.Position;
