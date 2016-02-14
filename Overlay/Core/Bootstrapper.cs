@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
+using Overlay.Core.Configuration;
 using Overlay.Core.Hooks;
 using Overlay.Core.Hotkeys;
 using Overlay.Core.SystemTray;
@@ -19,7 +21,7 @@ namespace Overlay.Core
         //private static readonly Expression<Action<Container>> ContainerRegisterAction = (c) => c.Register<object, object>();
 
         private readonly Application _application;
-        private Form1 _overlayForm;
+        //private Form1 _overlayForm;
 
         public Bootstrapper(Application application)
         {
@@ -44,21 +46,15 @@ namespace Overlay.Core
             MessageBus.Current.Listen<HideOverlayMessage>()
                 .Subscribe(message =>
                 {
-                    _overlayForm.Opacity = 0;
+                    c.Get<IOverlayManager>().HideOverlay();
                 });
             MessageBus.Current.Listen<ShowOverlayMessage>()
                 .Subscribe(message =>
                 {
-                    _overlayForm.Opacity = 100;
+                    c.Get<IOverlayManager>().ShowOverlay();
                 });
 
             // setup hooks
-            _overlayForm = c.Get<Form1>();
-            _overlayForm.Top = 0;
-            _overlayForm.Left = 0;
-            _overlayForm.Height = 250;
-            _overlayForm.Width = Screen.PrimaryScreen.WorkingArea.Width;
-            _overlayForm.Visible = true;
             c.Get<IWinEventHookManager>().Start();
 
             // setup system tray
@@ -68,6 +64,10 @@ namespace Overlay.Core
             systemTray.AddMenuItem<TerminateAppMessage>("Exit", null);
             systemTray.SetIcon(new Uri("pack://application:,,,/Assets/App.ico"));
             systemTray.Show();
+
+            // activate primary window but leave hidden            
+            _application.MainWindow = c.Get<MainWindow>();
+            _application.MainWindow.Visibility = Visibility.Hidden;
         }
 
         private static Container Build()
@@ -82,14 +82,21 @@ namespace Overlay.Core
             c.Register<IAboutViewModel, AboutViewModel>();
             c.Register<AboutWindow>();
 
+            c.Register<IOverlayViewModel, OverlayViewModel>();
+            c.Register<OverlayWindow>();
+
+
             c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
             c.Register<ISystemTrayNotificationService, SystemTrayNotificationService>();
-
-            c.RegisterSingleton<Form1>();
 
             c.RegisterSingleton<IWinEventHookManager, WinEventHookManager>();
 
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
+            c.RegisterSingleton<IConfigurationService, ConfigurationService>();
+
+            c.RegisterSingleton<IOverlayManager, OverlayManager>();
+
+
             return c;
         }
 
