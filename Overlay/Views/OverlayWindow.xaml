@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:Overlay.ViewModels"
         mc:Ignorable="d"
         Title="OverlayWindow" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged"
-        d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="{x:Null}"
+        d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True"
         >
     <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
         <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="#FFF14200" StrokeThickness="3" Fill="#FFFB7E02" Width="100" Height="100" Canvas.Left="1" Canvas.Top="1" />
