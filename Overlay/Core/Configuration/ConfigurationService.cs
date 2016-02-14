@@ -40,5 +40,14 @@ namespace Overlay.Core.Configuration
                 }
             };
         }
+
+        public OverlayVisuals GetOverlayVisuals()
+        {
+            return new OverlayVisuals()
+            {
+                Border = new SolidColor("#FFF14200"),
+                Fill = new SolidColor("#FFFB7E02")
+            };
+        }
     }
 }

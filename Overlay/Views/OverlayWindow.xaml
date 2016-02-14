@@ -10,7 +10,7 @@
         d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True"
         >
     <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">
-        <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="#FFF14200" StrokeThickness="3" Fill="#FFFB7E02" Width="100" Height="100" Canvas.Left="1" Canvas.Top="1" />
+        <Ellipse HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Stroke="{Binding Path=Stroke}" StrokeThickness="3" Fill="{Binding Path=Fill}" Width="100" Height="100" Canvas.Left="1" Canvas.Top="1" />
         <Rectangle Height="28" Canvas.Left="25" Stroke="White" Canvas.Top="27" Width="15"/>
         <Rectangle Height="28" Canvas.Left="60" Stroke="White" Canvas.Top="27" Width="15"/>
         <Rectangle Height="28" Canvas.Left="40" Stroke="White" Canvas.Top="27" Width="20" Fill="#FFAAAAAA"/>

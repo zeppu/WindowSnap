@@ -5,5 +5,8 @@ namespace Overlay.Core.Configuration
     public interface IConfigurationService
     {
         Layout GetActiveLayout();
+
+        OverlayVisuals GetOverlayVisuals();
+
     }
 }
