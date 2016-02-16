@@ -54,6 +54,7 @@ namespace Overlay.Core
 
                 vm.Top = area.Hotspot.Top;
                 vm.Left = area.Hotspot.Left;
+                vm.Name = area.Name;
 
                 _overlay.Add(w);
 

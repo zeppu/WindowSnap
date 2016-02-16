@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Overlay.Views"
         xmlns:viewModels="clr-namespace:Overlay.ViewModels"
-        mc:Ignorable="d"
+        mc:Ignorable="d" ShowInTaskbar="False" 
         Title="OverlayWindow" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged" Top="{Binding Path=Top, Mode=TwoWay}" Left="{Binding Path=Left, Mode=TwoWay}"
         d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True"
         >
@@ -14,6 +14,6 @@
         <Rectangle Height="28" Canvas.Left="25" Stroke="White" Canvas.Top="27" Width="15"/>
         <Rectangle Height="28" Canvas.Left="60" Stroke="White" Canvas.Top="27" Width="15"/>
         <Rectangle Height="28" Canvas.Left="40" Stroke="White" Canvas.Top="27" Width="20" Fill="#FFAAAAAA"/>
-        <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="55" Width="84" TextAlignment="Center" Foreground="White"/>
+        <TextBlock Canvas.Left="10" TextWrapping="Wrap" Text="{Binding Path=Name}" Canvas.Top="55" Width="84" TextAlignment="Center" Foreground="White"/>
     </Canvas>
 </Window>

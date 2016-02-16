@@ -32,6 +32,9 @@ namespace Overlay.ViewModels
 
         [Reactive]
         public int Top { get; set; }
+
+        [Reactive]
+        public string Name { get; set; }
     }
 
     public interface IOverlayViewModel
@@ -40,5 +43,6 @@ namespace Overlay.ViewModels
         SolidColorBrush Fill { get; set; }
         int Left { get; set; }
         int Top { get; set; }
+        string Name { get; set; }
     }
 }
