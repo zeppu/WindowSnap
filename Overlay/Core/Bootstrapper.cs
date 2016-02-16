@@ -6,6 +6,7 @@ using Anotar.NLog;
 using Overlay.Core.Configuration;
 using Overlay.Core.Hooks;
 using Overlay.Core.Hotkeys;
+using Overlay.Core.LayoutManager;
 using Overlay.Core.SystemTray;
 using Overlay.Messages;
 using Overlay.ViewModels;
@@ -50,7 +51,7 @@ namespace Overlay.Core
             MessageBus.Current.Listen<HideOverlayMessage>()
                 .Subscribe(message =>
                 {
-                    c.Get<IOverlayManager>().HideOverlay();
+                    c.Get<IOverlayManager>().HideOverlay(message.TargetWindowHandle);
                 });
             MessageBus.Current.Listen<ShowOverlayMessage>()
                 .Subscribe(message =>
@@ -76,6 +77,11 @@ namespace Overlay.Core
 
             _application.MainWindow = c.Get<MainWindow>();
             _application.MainWindow.Visibility = Visibility.Hidden;
+
+            // preliminary handling of active layout
+            var configurationService = c.Get<IConfigurationService>();
+            c.Get<ILayoutManager>().ModifyLayout(configurationService.GetActiveLayout(), Screen.PrimaryScreen);
+
 
             LogTo.Debug("Bootstrapper::Start() <<");
         }
@@ -106,7 +112,8 @@ namespace Overlay.Core
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
             c.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
-            c.RegisterSingleton<IOverlayManager, OverlayManager>();
+            c.RegisterSingleton<IOverlayManager, OverlayManagerImpl>();
+            c.RegisterSingleton<ILayoutManager, LayoutManagerImpl>();
 
 
             return c;

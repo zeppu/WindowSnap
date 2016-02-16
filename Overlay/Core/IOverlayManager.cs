@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Anotar.NLog;
 using Overlay.Core.Configuration;
 using Overlay.Core.Configuration.Model;
+using Overlay.Core.LayoutManager;
+using Overlay.Native;
 using Overlay.ViewModels;
 using Overlay.Views;
 using Cursor = System.Windows.Forms.Cursor;
+using Point = System.Drawing.Point;
 
 namespace Overlay.Core
 {
@@ -15,19 +21,19 @@ namespace Overlay.Core
     {
         void ShowOverlay();
 
-        void HideOverlay();
+        void HideOverlay(IntPtr targetWindowHandle);
     }
 
-    class OverlayManager : IOverlayManager
+    class OverlayManagerImpl : IOverlayManager
     {
         private readonly IServiceProvider _serviceProvider;
-        private readonly IConfigurationService _configurationService;
+        private readonly ILayoutManager _layoutManager;
         private readonly List<Window> _overlay = new List<Window>();
 
-        public OverlayManager(IServiceProvider serviceProvider, IConfigurationService configurationService)
+        public OverlayManagerImpl(IServiceProvider serviceProvider, ILayoutManager layoutManager)
         {
             _serviceProvider = serviceProvider;
-            _configurationService = configurationService;
+            _layoutManager = layoutManager;
         }
 
         public void ShowOverlay()
@@ -40,39 +46,41 @@ namespace Overlay.Core
                 _overlay.Clear();
             }
 
-
-            var offsetX = 0.0;
-            var layout = _configurationService.GetActiveLayout();
+            var layout = _layoutManager.GetActiveLayout(Screen.PrimaryScreen);
             foreach (var area in layout.Areas)
             {
                 var w = _serviceProvider.Get<OverlayWindow>();
                 var vm = ((IOverlayViewModel)w.DataContext);
 
-                var column = area as Column;
-                if (column != null)
-                {
-                    vm.Top = 50;
-                    var screenWidth = ConvertMeasurementToScreenWidth(column.Width);
-                    vm.Left = (int)(offsetX + (screenWidth / 2.0)) - 50;
-                    offsetX += screenWidth;
-                }
+                vm.Top = area.Hotspot.Top;
+                vm.Left = area.Hotspot.Left;
 
                 _overlay.Add(w);
 
                 w.Show();
             }
-
         }
 
-        public void HideOverlay()
+        public void HideOverlay(IntPtr targetWindowHandle)
         {
             var mousePosition = Cursor.Position;
+            LogTo.Debug($"Mouse Location: [{mousePosition.X}, {mousePosition.Y}]");
 
-            _overlay.ForEach(w =>
+            var layout = _layoutManager.GetActiveLayout(Screen.PrimaryScreen);
+            var targetArea = layout.Areas.FirstOrDefault(area => PointInRectangle(mousePosition, area.Hotspot));
+
+            LogTo.Info(targetArea != null
+                ? $"Assigning window to area [{targetArea.Name}] [{targetArea.Rect.X},{targetArea.Rect.Y},{targetArea.Rect.Width},{targetArea.Rect.Height}]"
+                : "No target area assigned");
+
+            if (targetArea != null)
             {
+                var rect = targetArea.Rect;
+                User32.SetWindowPos(targetWindowHandle, IntPtr.Zero, rect.X, rect.Y, rect.Width + User32.Constants.WINDOW_PADDING_HEIGHT,
+                    rect.Height + User32.Constants.WINDOW_PADDING_HEIGHT, SetWindowPosFlags.IgnoreZOrder);
+            }
 
-            });
-
+            LogTo.Debug("Closing overlay windows");
             _overlay.ForEach(w =>
             {
                 w.Hide();
@@ -80,6 +88,11 @@ namespace Overlay.Core
             });
 
             _overlay.Clear();
+        }
+
+        private bool PointInRectangle(Point p, Rectangle r)
+        {
+            return (p.X <= r.Right && p.X >= r.Left) && (p.Y >= r.Top && p.Y <= r.Bottom);
         }
 
         private double ConvertMeasurementToScreenWidth(Measurement m)
