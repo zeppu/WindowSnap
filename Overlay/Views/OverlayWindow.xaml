@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Overlay.Views"
         xmlns:viewModels="clr-namespace:Overlay.ViewModels"
         mc:Ignorable="d"
-        Title="OverlayWindow" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged"
+        Title="OverlayWindow" Topmost="True" ShowActivated="False" IsVisibleChanged="OverlayWindow_OnIsVisibleChanged" Top="{Binding Path=Top, Mode=TwoWay}" Left="{Binding Path=Left, Mode=TwoWay}"
         d:DataContext="{d:DesignInstance viewModels:OverlayViewModel}" ResizeMode="NoResize" WindowStyle="None" SizeToContent="WidthAndHeight" Background="Transparent" AllowsTransparency="True"
         >
     <Canvas HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100">

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
+using System.Windows.Input;
 using Overlay.Core.Configuration;
 using Overlay.Core.Configuration.Model;
+using Overlay.ViewModels;
 using Overlay.Views;
+using Cursor = System.Windows.Forms.Cursor;
 
 namespace Overlay.Core
 {
@@ -43,23 +46,43 @@ namespace Overlay.Core
             foreach (var area in layout.Areas)
             {
                 var w = _serviceProvider.Get<OverlayWindow>();
-                _overlay.Add(w);
+                var vm = ((IOverlayViewModel)w.DataContext);
 
-                w.Top = 50;
                 var column = area as Column;
                 if (column != null)
                 {
-                    var screenWidth = ConverMeasurementToScreenWidth(column.Width);
-                    w.Left = (offsetX + (screenWidth / 2.0)) - 50;
+                    vm.Top = 50;
+                    var screenWidth = ConvertMeasurementToScreenWidth(column.Width);
+                    vm.Left = (int)(offsetX + (screenWidth / 2.0)) - 50;
                     offsetX += screenWidth;
                 }
+
+                _overlay.Add(w);
 
                 w.Show();
             }
 
         }
 
-        private double ConverMeasurementToScreenWidth(Measurement m)
+        public void HideOverlay()
+        {
+            var mousePosition = Cursor.Position;
+
+            _overlay.ForEach(w =>
+            {
+
+            });
+
+            _overlay.ForEach(w =>
+            {
+                w.Hide();
+                w.Close();
+            });
+
+            _overlay.Clear();
+        }
+
+        private double ConvertMeasurementToScreenWidth(Measurement m)
         {
             switch (m.Unit)
             {
@@ -72,17 +95,6 @@ namespace Overlay.Core
             }
 
             throw new InvalidOperationException();
-        }
-
-        public void HideOverlay()
-        {
-            _overlay.ForEach(w =>
-            {
-                w.Hide();
-                w.Close();
-            });
-
-            _overlay.Clear();
         }
     }
 }
