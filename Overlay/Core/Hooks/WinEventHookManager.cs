@@ -1,4 +1,5 @@
 using System;
+using Anotar.NLog;
 using Overlay.Messages;
 using Overlay.Native;
 using ReactiveUI;
@@ -16,7 +17,6 @@ namespace Overlay.Core.Hooks
         {
             _endMoveDelegate = WindowDragEnd;
             _startMoveDelegate = WindowDragBegin;
-
         }
 
         public void Dispose()

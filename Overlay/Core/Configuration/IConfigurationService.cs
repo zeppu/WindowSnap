@@ -8,5 +8,6 @@ namespace Overlay.Core.Configuration
 
         OverlayVisuals GetOverlayVisuals();
 
+        void LoadConfiguration();
     }
 }

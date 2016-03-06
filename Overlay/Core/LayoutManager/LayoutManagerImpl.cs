@@ -15,20 +15,27 @@ namespace Overlay.Core.LayoutManager
         {
             // determine shape of layout
             ActiveLayout activeLayout = null;
-            if (layout.Areas.All(area => area is Column))
+            var columnLayout = layout as ColumnLayout;
+            if (columnLayout != null)
             {
-                activeLayout = BuildColumnLayout(layout, targetScreen);
-            }
-            else if (layout.Areas.All(area => area is Row))
-            {
-                activeLayout = BuildRowLayout(layout, targetScreen);
-            }
-            else
-            {
-                activeLayout = BuildGridLayout(layout, targetScreen);
+                activeLayout = BuildColumnLayout(columnLayout.Columns, targetScreen);
+                _activeLayouts[targetScreen] = activeLayout;
+                return;
             }
 
-            _activeLayouts[targetScreen] = activeLayout;
+            var rowLayout = layout as RowLayout;
+            if (rowLayout != null)
+            {
+                activeLayout = BuildRowLayout(rowLayout.Rows, targetScreen);
+                _activeLayouts[targetScreen] = activeLayout;
+                return;
+            }
+
+
+            //{
+            //    activeLayout = BuildGridLayout(layout, targetScreen);
+            //}
+
         }
 
         public ActiveLayout GetActiveLayout(Screen targetScreen)
@@ -36,23 +43,23 @@ namespace Overlay.Core.LayoutManager
             return _activeLayouts[targetScreen];
         }
 
-        private ActiveLayout BuildGridLayout(Layout layout, Screen targetScreen)
+        private ActiveLayout BuildGridLayout(IEnumerable<Area> layout, Screen targetScreen)
         {
             throw new NotImplementedException();
         }
 
-        private ActiveLayout BuildRowLayout(Layout layout, Screen targetScreen)
+        private ActiveLayout BuildRowLayout(IEnumerable<Row> layout, Screen targetScreen)
         {
             throw new NotImplementedException();
         }
 
-        private ActiveLayout BuildColumnLayout(Layout layout, Screen targetScreen)
+        private ActiveLayout BuildColumnLayout(IEnumerable<Column> layout, Screen targetScreen)
         {
             var format = ActiveLayoutFormat.Columns;
 
             var offsetX = 0;
 
-            var areaInfos = layout.Areas.Cast<Column>().Select(column =>
+            var areaInfos = layout.Select(column =>
             {
 
                 // calculate area dims

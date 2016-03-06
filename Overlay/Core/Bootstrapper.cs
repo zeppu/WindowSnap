@@ -80,6 +80,7 @@ namespace Overlay.Core
 
             // preliminary handling of active layout
             var configurationService = c.Get<IConfigurationService>();
+            configurationService.LoadConfiguration();
             c.Get<ILayoutManager>().ModifyLayout(configurationService.GetActiveLayout(), Screen.PrimaryScreen);
 
 

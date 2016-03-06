@@ -1,7 +1,19 @@
-﻿namespace Overlay.Core.Configuration.Model
+﻿using System;
+using System.Xml.Serialization;
+
+namespace Overlay.Core.Configuration.Model
 {
+
+    [Serializable]
     public class Row : Area
     {
-        public double Height { get; set; }
+        [XmlAttribute("height")]
+        public string HeightAsString
+        {
+            get { return Height.ToString(); }
+            set { Height = (Measurement)value; }
+        }
+        [XmlIgnore]
+        public Measurement Height { get; set; }
     }
 }
