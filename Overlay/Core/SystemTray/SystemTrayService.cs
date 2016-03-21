@@ -7,7 +7,7 @@ using ReactiveUI;
 
 namespace Overlay.Core.SystemTray
 {
-    class SystemTrayService : ISystemTrayService
+    class SystemTrayService : ISystemTrayService, IDisposable
     {
         private static readonly Expression<Action<IMessageBus>> SendMessageActionExpression =
             mb => mb.SendMessage(default(object), default(string));
@@ -137,6 +137,14 @@ namespace Overlay.Core.SystemTray
         public void AddSeperator()
         {
             _systemTrayIcon.ContextMenuStrip.Items.Add(new ToolStripSeparator());
+        }
+
+        public void Dispose()
+        {
+            _systemTrayIcon.ContextMenuStrip.Dispose();
+
+            _systemTrayIcon.Visible = false;
+            _systemTrayIcon.Dispose();
         }
     }
 }

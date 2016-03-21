@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ShadedLavander">#6C5A83</Color>
+    <Color x:Key="SomeGray">#D6D6D6</Color>
+    <Color x:Key="Brownish">#5B381D</Color>
+    <Color x:Key="Tealish">#1D555B</Color>
+    <Color x:Key="LightBrownish">#D1C09C</Color>
+
+    <SolidColorBrush x:Key="ShadedLavanderBrush">#6C5A83</SolidColorBrush>
+    <SolidColorBrush x:Key="SomeGrayBrush">#D6D6D6</SolidColorBrush>
+    <SolidColorBrush x:Key="BrownishBrush">#5B381D</SolidColorBrush>
+    <SolidColorBrush x:Key="TealishBrush">#1D555B</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBrownishBrush">#D1C09C</SolidColorBrush>
+
+</ResourceDictionary>

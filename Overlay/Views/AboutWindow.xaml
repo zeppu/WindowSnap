@@ -14,7 +14,7 @@
             <ColumnDefinition Width="80"/>
             <ColumnDefinition Width="188*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Grid.ColumnSpan="2" Fill="#6C5A83" Height="77" Width="458"/>
+        <Rectangle Grid.ColumnSpan="2" Fill="{StaticResource ShadedLavanderBrush}" Height="77" Width="458"/>
 
         <Image x:Name="image" Source="/Assets/App.ico" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
         <Label x:Name="textBlock" Grid.Column="1" Margin="10,0,0,10" Content="ScreenCommander" VerticalAlignment="Bottom" FontSize="32" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="#FFFFFF" Padding="5,5,5,0"/>

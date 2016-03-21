@@ -1,4 +1,5 @@
-﻿using Overlay.Core.Configuration.Model;
+﻿using System.Collections.Generic;
+using Overlay.Core.Configuration.Model;
 
 namespace Overlay.Core.Configuration
 {
@@ -9,5 +10,6 @@ namespace Overlay.Core.Configuration
         OverlayVisuals GetOverlayVisuals();
 
         void LoadConfiguration();
+        IEnumerable<Layout> GetLayouts();
     }
 }

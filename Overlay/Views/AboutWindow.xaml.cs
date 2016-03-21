@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Overlay.ViewModels;
 
 namespace Overlay.Views
 {
@@ -7,8 +8,9 @@ namespace Overlay.Views
     /// </summary>
     public partial class AboutWindow : Window
     {
-        public AboutWindow()
+        public AboutWindow(IAboutViewModel viewModel)
         {
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

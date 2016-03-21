@@ -96,6 +96,11 @@ namespace Overlay.Core.Configuration
             _layouts.AddRange(configurationFile.Layouts);
         }
 
+        public IEnumerable<Layout> GetLayouts()
+        {
+            return _layouts;
+        }
+
         public ConfigurationFile LoadConfigurationFile(FileInfo layoutsFile)
         {
             ConfigurationFile configFile;

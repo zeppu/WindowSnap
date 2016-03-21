@@ -1,6 +1,8 @@
-﻿namespace Overlay.ViewModels
+﻿using ReactiveUI;
+
+namespace Overlay.ViewModels
 {
-    public class AboutViewModel : IAboutViewModel
+    public class AboutViewModel : ReactiveObject, IAboutViewModel
     {
     }
 

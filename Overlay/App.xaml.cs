@@ -10,19 +10,20 @@ namespace Overlay
     {
         private Bootstrapper _bootstrapper;
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _bootstrapper.Dispose();
+
+            base.OnExit(e);
+        }
+
         protected override void OnStartup(StartupEventArgs e)
         {
+            base.OnStartup(e);
+
             _bootstrapper = new Bootstrapper(this);
             _bootstrapper.Start();
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            _bootstrapper.Dispose();
-            
-            base.OnExit(e);
-        }
-
-        
     }
 }

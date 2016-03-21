@@ -23,6 +23,7 @@ namespace Overlay.Core
         //private static readonly Expression<Action<Container>> ContainerRegisterAction = (c) => c.Register<object, object>();
 
         private readonly Application _application;
+        private Container _container;
         //private Form1 _overlayForm;
 
         public Bootstrapper(Application application)
@@ -35,16 +36,26 @@ namespace Overlay.Core
             LogTo.Debug("Bootstrapper::Start() >>");
 
             var c = Build();
+            _container = c;
 
             // setup message router
             LogTo.Info("Setting up message router...");
             MessageBus.Current.Listen<ShowAboutBoxMessage>().Subscribe(message =>
             {
-                MessageBox.Show("Received message");
+                var view = c.GetInstance<AboutWindow>();
+                view.Show();
             });
+
+            MessageBus.Current.Listen<ShowConfigurationMessage>()
+                .Subscribe(message =>
+                {
+                    var view = c.GetInstance<ConfigurationWindow>();
+                    view.Show();
+                });
 
             MessageBus.Current.Listen<TerminateAppMessage>().Subscribe(message =>
             {
+
                 _application.Shutdown(0);
             });
 
@@ -66,8 +77,9 @@ namespace Overlay.Core
             // setup system tray
             LogTo.Info("Setting up SystemTray icon ...");
             var systemTray = c.Get<ISystemTrayService>();
-            systemTray.AddMenuItem<ShowAboutBoxMessage>("About", null);
+            systemTray.AddMenuItem<ShowConfigurationMessage>("Options", null);
             systemTray.AddSeperator();
+            systemTray.AddMenuItem<ShowAboutBoxMessage>("About", null);
             systemTray.AddMenuItem<TerminateAppMessage>("Exit", null);
             systemTray.SetIcon(new Uri("pack://application:,,,/Assets/App.ico"));
             systemTray.Show();
@@ -104,6 +116,13 @@ namespace Overlay.Core
             c.Register<IOverlayViewModel, OverlayViewModel>();
             c.Register<OverlayWindow>();
 
+            c.Register<IConfigurationViewModel, ConfigurationViewModel>();
+            c.Register<ConfigurationWindow>();
+
+            c.RegisterCollection<IConfigurationPartViewModel>(new[]
+{
+                Lifestyle.Transient.CreateRegistration<LayoutConfigurationViewModel>(c)
+            });
 
             c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
             c.Register<ISystemTrayNotificationService, SystemTrayNotificationService>();
@@ -116,13 +135,12 @@ namespace Overlay.Core
             c.RegisterSingleton<IOverlayManager, OverlayManagerImpl>();
             c.RegisterSingleton<ILayoutManager, LayoutManagerImpl>();
 
-
             return c;
         }
 
         public void Dispose()
         {
-
+            _container.Dispose();
         }
     }
 }
