@@ -10,7 +10,6 @@ namespace Overlay.Core.LayoutManager
     public class ActiveArea
     {
         private readonly List<WindowInformation> _windows;
-        private readonly Dictionary<WindowInformation, Rectangle> _preDockWindowDimensions = new Dictionary<WindowInformation, Rectangle>();
 
         public ActiveArea(string name, Rectangle rect, Rectangle hotspot)
         {
@@ -33,20 +32,6 @@ namespace Overlay.Core.LayoutManager
         {
             // add window to our assignee list
             _windows.Add(window);
-
-            // store previous dimensions
-            User32.RECT rect;
-            if (User32.GetWindowRect(window, out rect))
-            {
-                _preDockWindowDimensions.Add(window, rect);
-            }
-
-            // resize window to match our area dimensions
-            User32.SetWindowPos(window, IntPtr.Zero,
-                Rect.X, Rect.Y,
-                Rect.Width + User32.Constants.WINDOW_PADDING_HEIGHT,
-                Rect.Height + User32.Constants.WINDOW_PADDING_HEIGHT,
-                SetWindowPosFlags.IgnoreZOrder);
         }
 
         public bool IsWindowAttached(WindowInformation window)
@@ -60,19 +45,6 @@ namespace Overlay.Core.LayoutManager
                 return;
 
             _windows.Remove(window);
-
-            if (!_preDockWindowDimensions.ContainsKey(window))
-                return;
-
-            var preDockRectangle = _preDockWindowDimensions[window];
-            _preDockWindowDimensions.Remove(window);
-
-            // restore original window dimensions
-            User32.SetWindowPos(window, IntPtr.Zero,
-                0, 0,
-                preDockRectangle.Width,
-                preDockRectangle.Height,
-                SetWindowPosFlags.IgnoreZOrder | SetWindowPosFlags.IgnoreMove | SetWindowPosFlags.DoNotCopyBits | SetWindowPosFlags.AsynchronousWindowPosition | SetWindowPosFlags.FrameChanged | SetWindowPosFlags.DoNotActivate);
         }
     }
 }

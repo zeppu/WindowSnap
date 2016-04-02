@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -6,6 +7,7 @@ using Anotar.NLog;
 using Overlay.Core.Configuration.Model;
 using Overlay.Core.LayoutManager;
 using Overlay.Messages;
+using Overlay.Native;
 
 namespace Overlay.Core
 {
@@ -22,6 +24,9 @@ namespace Overlay.Core
 
     class DockingManagerImpl : IDockingManager, IMessageHandler<StartingWindowDrag>, IMessageHandler<EndingWindowDrag>
     {
+        private readonly Dictionary<WindowInformation, ActiveArea> _windowAttachments = new Dictionary<WindowInformation, ActiveArea>();
+        private readonly Dictionary<WindowInformation, Rectangle> _preDockWindowDimensions = new Dictionary<WindowInformation, Rectangle>();
+
         private readonly ILayoutManager _layoutManager;
 
         public DockingManagerImpl(ILayoutManager layoutManager)
@@ -61,13 +66,27 @@ namespace Overlay.Core
 
             LogTo.Info($"Attaching window [{window.Title}] to area [{targetArea.Name}] [{targetArea.Rect.X},{targetArea.Rect.Y},{targetArea.Rect.Width},{targetArea.Rect.Height}]");
             targetArea.AttachWindow(window);
+
+            _windowAttachments.Add(window, targetArea);
+
+            // store previous dimensions
+            User32.RECT rect;
+            if (User32.GetWindowRect(window, out rect))
+            {
+                _preDockWindowDimensions.Add(window, rect);
+            }
+
+            // resize window to match our area dimensions
+            User32.SetWindowPos(window, IntPtr.Zero,
+                targetArea.Rect.X, targetArea.Rect.Y,
+                targetArea.Rect.Width + User32.Constants.WINDOW_PADDING_HEIGHT,
+                targetArea.Rect.Height + User32.Constants.WINDOW_PADDING_HEIGHT,
+                SetWindowPosFlags.IgnoreZOrder);
         }
 
         public bool IsWindowDocked(WindowInformation window)
         {
-            var screen = GetActiveScreen();
-            var layout = _layoutManager.GetActiveLayout(screen);
-            return layout.Areas.Any(area => area.IsWindowAttached(window));
+            return _windowAttachments.ContainsKey(window);
         }
 
         public void UndockWindow(WindowInformation window)
@@ -75,25 +94,31 @@ namespace Overlay.Core
             LogTo.Trace();
 
             ActiveArea attachedArea;
-            if (GetAreaForAttachedWindow(window, out attachedArea))
+            if (!GetAreaForAttachedWindow(window, out attachedArea))
                 return;
+
+            _windowAttachments.Remove(window);
 
             LogTo.Info($"Detaching window [{window.Title}] from [{attachedArea.Name}]");
             attachedArea.DetachWindow(window);
+
+            // restore original window dimensions
+            if (!_preDockWindowDimensions.ContainsKey(window))
+                return;
+
+            var preDockRectangle = _preDockWindowDimensions[window];
+            _preDockWindowDimensions.Remove(window);
+
+            User32.SetWindowPos(window, IntPtr.Zero,
+                0, 0,
+                preDockRectangle.Width,
+                preDockRectangle.Height,
+                SetWindowPosFlags.IgnoreZOrder | SetWindowPosFlags.IgnoreMove | SetWindowPosFlags.DoNotCopyBits | SetWindowPosFlags.AsynchronousWindowPosition | SetWindowPosFlags.FrameChanged | SetWindowPosFlags.DoNotActivate);
         }
 
         private bool GetAreaForAttachedWindow(WindowInformation window, out ActiveArea attachedArea)
         {
-            var screen = GetActiveScreen();
-            var layout = _layoutManager.GetActiveLayout(screen);
-            attachedArea = layout.Areas.FirstOrDefault(area => area.IsWindowAttached(window));
-
-            if (attachedArea == null)
-            {
-                LogTo.Info("Window not attached to an area");
-                return true;
-            }
-            return false;
+            return _windowAttachments.TryGetValue(window, out attachedArea);
         }
 
         private bool PointInRectangle(Point p, Rectangle r)
