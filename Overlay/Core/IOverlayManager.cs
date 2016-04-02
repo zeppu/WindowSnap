@@ -9,6 +9,7 @@ using Anotar.NLog;
 using Overlay.Core.Configuration;
 using Overlay.Core.Configuration.Model;
 using Overlay.Core.LayoutManager;
+using Overlay.Messages;
 using Overlay.Native;
 using Overlay.ViewModels;
 using Overlay.Views;
@@ -24,7 +25,7 @@ namespace Overlay.Core
         void HideOverlay(IntPtr targetWindowHandle);
     }
 
-    class OverlayManagerImpl : IOverlayManager
+    class OverlayManagerImpl : IOverlayManager, IMessageHandler<StartingWindowDrag>, IMessageHandler<EndingWindowDrag>
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILayoutManager _layoutManager;
@@ -47,6 +48,8 @@ namespace Overlay.Core
             }
 
             var layout = _layoutManager.GetActiveLayout(Screen.PrimaryScreen);
+
+            // build overlays and render on screen
             foreach (var area in layout.Areas)
             {
                 var w = _serviceProvider.Get<OverlayWindow>();
@@ -64,23 +67,6 @@ namespace Overlay.Core
 
         public void HideOverlay(IntPtr targetWindowHandle)
         {
-            var mousePosition = Cursor.Position;
-            LogTo.Debug($"Mouse Location: [{mousePosition.X}, {mousePosition.Y}]");
-
-            var layout = _layoutManager.GetActiveLayout(Screen.PrimaryScreen);
-            var targetArea = layout.Areas.FirstOrDefault(area => PointInRectangle(mousePosition, area.Hotspot));
-
-            LogTo.Info(targetArea != null
-                ? $"Assigning window to area [{targetArea.Name}] [{targetArea.Rect.X},{targetArea.Rect.Y},{targetArea.Rect.Width},{targetArea.Rect.Height}]"
-                : "No target area assigned");
-
-            if (targetArea != null)
-            {
-                var rect = targetArea.Rect;
-                User32.SetWindowPos(targetWindowHandle, IntPtr.Zero, rect.X, rect.Y, rect.Width + User32.Constants.WINDOW_PADDING_HEIGHT,
-                    rect.Height + User32.Constants.WINDOW_PADDING_HEIGHT, SetWindowPosFlags.IgnoreZOrder);
-            }
-
             LogTo.Debug("Closing overlay windows");
             _overlay.ForEach(w =>
             {
@@ -91,24 +77,14 @@ namespace Overlay.Core
             _overlay.Clear();
         }
 
-        private bool PointInRectangle(Point p, Rectangle r)
+        public void HandleMessage(StartingWindowDrag message)
         {
-            return (p.X <= r.Right && p.X >= r.Left) && (p.Y >= r.Top && p.Y <= r.Bottom);
+            ShowOverlay();
         }
 
-        private double ConvertMeasurementToScreenWidth(Measurement m)
+        public void HandleMessage(EndingWindowDrag message)
         {
-            switch (m.Unit)
-            {
-                case MeasurementUnit.Percentage:
-                    return ((m.Value / 100) * Screen.PrimaryScreen.Bounds.Width);
-                    break;
-                case MeasurementUnit.Pixels:
-                    return m.Value;
-                    break;
-            }
-
-            throw new InvalidOperationException();
+            HideOverlay(message.TargetWindowHandle);
         }
     }
 }

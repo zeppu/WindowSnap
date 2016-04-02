@@ -59,15 +59,15 @@ namespace Overlay.Core
                 _application.Shutdown(0);
             });
 
-            MessageBus.Current.Listen<HideOverlayMessage>()
+            MessageBus.Current.Listen<EndingWindowDrag>()
                 .Subscribe(message =>
                 {
-                    c.Get<IOverlayManager>().HideOverlay(message.TargetWindowHandle);
+                    HandleMessage(c, message);
                 });
-            MessageBus.Current.Listen<ShowOverlayMessage>()
+            MessageBus.Current.Listen<StartingWindowDrag>()
                 .Subscribe(message =>
                 {
-                    c.Get<IOverlayManager>().ShowOverlay();
+                    HandleMessage(c, message);
                 });
 
             // setup hooks
@@ -97,6 +97,15 @@ namespace Overlay.Core
 
 
             LogTo.Debug("Bootstrapper::Start() <<");
+        }
+
+        private static void HandleMessage<TMessage>(Container c, TMessage message)
+            where TMessage : class
+        {
+            foreach (var handler in c.GetAllInstances<IMessageHandler<TMessage>>())
+            {
+                handler.HandleMessage(message);
+            }
         }
 
         private static Container Build()
@@ -133,8 +142,18 @@ namespace Overlay.Core
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
             c.RegisterSingleton<IConfigurationService, ConfigurationService>();
 
-            c.RegisterSingleton<IOverlayManager, OverlayManagerImpl>();
+            //c.RegisterSingleton<IOverlayManager, OverlayManagerImpl>();
             c.RegisterSingleton<ILayoutManager, LayoutManagerImpl>();
+
+            //c.RegisterSingleton<IDockingManager, DockingManagerImpl>();
+
+            var commonMessageHandlers = new[]
+            {
+                Lifestyle.Singleton.CreateRegistration<OverlayManagerImpl>(c),
+                Lifestyle.Singleton.CreateRegistration<DockingManagerImpl>(c)
+            };
+            c.RegisterCollection<IMessageHandler<StartingWindowDrag>>(commonMessageHandlers);
+            c.RegisterCollection<IMessageHandler<EndingWindowDrag>>(commonMessageHandlers);
 
             return c;
         }

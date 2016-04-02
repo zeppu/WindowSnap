@@ -6,9 +6,9 @@ namespace Overlay.Core.LayoutManager
     {
         public ActiveLayoutFormat Format { get; private set; }
 
-        public IReadOnlyList<AreaInfo> Areas { get; private set; }
+        public IReadOnlyList<ActiveArea> Areas { get; private set; }
 
-        public ActiveLayout(ActiveLayoutFormat format, IReadOnlyList<AreaInfo> areas)
+        public ActiveLayout(ActiveLayoutFormat format, IReadOnlyList<ActiveArea> areas)
         {
             Format = format;
             Areas = areas;

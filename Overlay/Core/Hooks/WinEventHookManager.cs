@@ -36,13 +36,13 @@ namespace Overlay.Core.Hooks
 
         private void WindowDragBegin(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            MessageBus.Current.SendMessage(new ShowOverlayMessage());
+            MessageBus.Current.SendMessage(new StartingWindowDrag(hwnd));
         }
 
         private void WindowDragEnd(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            MessageBus.Current.SendMessage(new HideOverlayMessage(hwnd));
+            MessageBus.Current.SendMessage(new EndingWindowDrag(hwnd));
         }
     }
 }

@@ -126,13 +126,16 @@
     <Compile Include="Core\Hooks\WinEventHookManager.cs" />
     <Compile Include="Core\Hotkeys\Hotkey.cs" />
     <Compile Include="Core\Hotkeys\HotkeyManager.cs" />
+    <Compile Include="Core\IDockingManager.cs" />
+    <Compile Include="Core\IMessageHandler.cs" />
     <Compile Include="Core\IUserNotificationService.cs" />
     <Compile Include="Core\IOverlayManager.cs" />
     <Compile Include="Core\LayoutManager\ActiveLayout.cs" />
     <Compile Include="Core\LayoutManager\ActiveLayoutFormat.cs" />
-    <Compile Include="Core\LayoutManager\AreaInfo.cs" />
+    <Compile Include="Core\LayoutManager\ActiveArea.cs" />
     <Compile Include="Core\LayoutManager\ILayoutManager.cs" />
     <Compile Include="Core\LayoutManager\LayoutManagerImpl.cs" />
+    <Compile Include="Core\WindowInformation.cs" />
     <Compile Include="Core\ServiceProviderExtensions.cs" />
     <Compile Include="Core\SystemTray\ISystemTrayNotificationService.cs" />
     <Compile Include="Core\SystemTray\ISystemTrayService.cs" />
@@ -144,10 +147,10 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Messages\HideOverlayMessage.cs" />
+    <Compile Include="Messages\EndingWindowDrag.cs" />
     <Compile Include="Messages\ShowAboutBoxMessage.cs" />
     <Compile Include="Messages\ShowConfigurationMessage.cs" />
-    <Compile Include="Messages\ShowOverlayMessage.cs" />
+    <Compile Include="Messages\StartingWindowDrag.cs" />
     <Compile Include="Messages\TerminateAppMessage.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\ModifierKeys.cs" />

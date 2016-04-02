@@ -2,9 +2,9 @@
 
 namespace Overlay.Messages
 {
-    public class HideOverlayMessage
+    public class EndingWindowDrag
     {
-        public HideOverlayMessage(IntPtr targetWindowHandle)
+        public EndingWindowDrag(IntPtr targetWindowHandle)
         {
             TargetWindowHandle = targetWindowHandle;
         }

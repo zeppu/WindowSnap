@@ -76,7 +76,7 @@ namespace Overlay.Core.LayoutManager
 
                 offsetX += actualColumnWidth;
 
-                return new AreaInfo(column.Name, rect, hotspotRect);
+                return new ActiveArea(column.Name, rect, hotspotRect);
             }).ToList().AsReadOnly();
 
             return new ActiveLayout(format, areaInfos);
