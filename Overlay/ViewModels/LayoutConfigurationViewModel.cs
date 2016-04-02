@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Overlay.Core.Configuration;
 using Overlay.Core.Configuration.Model;
 using ReactiveUI;
@@ -10,21 +11,25 @@ namespace Overlay.ViewModels
     {
         public string Title { get; } = "Layouts";
 
-        public IReactiveList<Layout> Layouts { get; }
+        public IReactiveList<ILayoutEditorViewModel> Layouts { get; }
 
         public ReactiveCommand<object> AddLayout { get; }
 
         [Reactive]
-        public Layout SelectedLayout { get; set; }
+        public ILayoutEditorViewModel SelectedLayout { get; set; }
 
         public LayoutConfigurationViewModel(IConfigurationService configurationService)
         {
-            Layouts = new ReactiveList<Layout>(configurationService.GetLayouts());
+            Layouts = new ReactiveList<ILayoutEditorViewModel>(configurationService.GetLayouts().Select(c => new ColumnLayoutEditorViewModel(c)));
 
 
 
             AddLayout = ReactiveCommand.Create();
-            AddLayout.Subscribe(x => Layouts.Add(new ColumnLayout()));
+            AddLayout.Subscribe(x => Layouts.Add(new ColumnLayoutEditorViewModel()
+            {
+                Name = "NewLayout" + (Layouts.Count + 1),
+                DisplayName = "New Column Layout" + (Layouts.Count + 1),
+            }));
         }
     }
 
