@@ -199,6 +199,9 @@
     <Resource Include="Assets\App.ico" />
     <Resource Include="FodyWeavers.xml" />
     <Resource Include="Assets\process.png" />
+    <Resource Include="Assets\delete.png" />
+    <Resource Include="Assets\process.ico" />
+    <Resource Include="Assets\add.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
