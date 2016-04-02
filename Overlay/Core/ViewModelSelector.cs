@@ -13,6 +13,9 @@ namespace Overlay.Core
         private readonly List<DataTemplateMapping> _mappings = new List<DataTemplateMapping>();
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if (item == null)
+                return base.SelectTemplate(item, container);
+
             var template = _mappings.Where(m => m.ViewModelType == item.GetType()).Select(m => m.Template).FirstOrDefault();
             if (template == null)
                 return base.SelectTemplate(item, container);
