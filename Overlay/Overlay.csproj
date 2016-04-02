@@ -160,12 +160,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AreaViewModel.cs" />
-    <Compile Include="ViewModels\ColumnLayoutEditorViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModels\ColumnLayoutEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
-    <Compile Include="ViewModels\InterfaceConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModels\InterfaceConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModels\IntegrationConfigurationViewModel.cs" />
     <Compile Include="ViewModels\IConfigurationPartViewModel.cs" />
     <Compile Include="ViewModels\IConfigurationViewModel.cs" />
-    <Compile Include="ViewModels\LayoutConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModels\LayoutConfigurationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OverlayViewModel.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">

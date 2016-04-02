@@ -1,11 +1,11 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Overlay.Core.Configuration.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System;
-using System.Linq;
 
-namespace Overlay.ViewModels
+namespace Overlay.ViewModels.ConfigurationViewModels
 {
     public class ColumnLayoutEditorViewModel : ReactiveObject, IColumnLayoutEditorViewModel
     {

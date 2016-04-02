@@ -10,6 +10,7 @@ using Overlay.Core.LayoutManager;
 using Overlay.Core.SystemTray;
 using Overlay.Messages;
 using Overlay.ViewModels;
+using Overlay.ViewModels.ConfigurationViewModels;
 using Overlay.Views;
 using ReactiveUI;
 using SimpleInjector;
@@ -131,7 +132,8 @@ namespace Overlay.Core
             c.RegisterCollection<IConfigurationPartViewModel>(new[]
             {
                 Lifestyle.Transient.CreateRegistration<LayoutConfigurationViewModel>(c),
-                Lifestyle.Transient.CreateRegistration<InterfaceConfigurationViewModel>(c)
+                Lifestyle.Transient.CreateRegistration<InterfaceConfigurationViewModel>(c),
+                Lifestyle.Transient.CreateRegistration<IntegrationConfigurationViewModel>(c),
             });
 
             c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
@@ -141,11 +143,7 @@ namespace Overlay.Core
 
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
             c.RegisterSingleton<IConfigurationService, ConfigurationService>();
-
-            //c.RegisterSingleton<IOverlayManager, OverlayManagerImpl>();
             c.RegisterSingleton<ILayoutManager, LayoutManagerImpl>();
-
-            //c.RegisterSingleton<IDockingManager, DockingManagerImpl>();
 
             var commonMessageHandlers = new[]
             {

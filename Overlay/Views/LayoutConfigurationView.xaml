@@ -7,23 +7,24 @@
              xmlns:viewModels="clr-namespace:Overlay.ViewModels"
              xmlns:core="clr-namespace:Overlay.Core"
              xmlns:model="clr-namespace:Overlay.Core.Configuration.Model"
+             xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
 
-             d:DataContext="{d:DesignInstance viewModels:LayoutConfigurationViewModel}"
+             d:DataContext="{d:DesignInstance configurationViewModels:LayoutConfigurationViewModel}"
              mc:Ignorable="d" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" d:DesignHeight="212.569" d:DesignWidth="406.906">
     <UserControl.Resources>
         <core:ViewModelSelector x:Key="ModelSelector">
-            <core:DataTemplateMapping ViewModelType="viewModels:ColumnLayoutEditorViewModel">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:ColumnLayoutEditorViewModel">
                 <core:DataTemplateMapping.Template>
-                    <DataTemplate DataType="{x:Type viewModels:ColumnLayoutEditorViewModel}">
+                    <DataTemplate DataType="{x:Type configurationViewModels:ColumnLayoutEditorViewModel}">
                         <Label Content="{Binding Path=DisplayName}"></Label>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>
         </core:ViewModelSelector>
         <core:ViewModelSelector x:Key="EditorViewSelector">
-            <core:DataTemplateMapping ViewModelType="viewModels:ColumnLayoutEditorViewModel">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:ColumnLayoutEditorViewModel">
                 <core:DataTemplateMapping.Template>
-                    <DataTemplate DataType="{x:Type viewModels:ColumnLayoutEditorViewModel}">
+                    <DataTemplate DataType="{x:Type configurationViewModels:ColumnLayoutEditorViewModel}">
                         <local:ColumnLayoutEditorView></local:ColumnLayoutEditorView>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>

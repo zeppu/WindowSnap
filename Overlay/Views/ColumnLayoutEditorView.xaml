@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:Overlay.Views"
              xmlns:viewModels="clr-namespace:Overlay.ViewModels"
              xmlns:model="clr-namespace:Overlay.Core.Configuration.Model"
+             xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance viewModels:ColumnLayoutEditorViewModel}"
+             d:DataContext="{d:DesignInstance configurationViewModels:ColumnLayoutEditorViewModel}"
              >
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <Grid.Resources>
@@ -80,7 +81,7 @@
                 </Style>
             </ListBox.Resources>
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="viewModels:ColumnViewModel">
+                <DataTemplate DataType="configurationViewModels:ColumnViewModel">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>

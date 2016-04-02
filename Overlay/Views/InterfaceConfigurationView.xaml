@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Overlay.Views"
              xmlns:viewModels="clr-namespace:Overlay.ViewModels"
+             xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="182.951" d:DesignWidth="350.656"
-             d:DataContext="{d:DesignInstance viewModels:InterfaceConfigurationViewModel }"
+             d:DataContext="{d:DesignInstance configurationViewModels:InterfaceConfigurationViewModel }"
              >
     <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
         <StackPanel Margin="2">
@@ -16,7 +17,7 @@
                     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <CheckBox Margin="2,4"  IsChecked="{Binding Path=Autostart}"><TextBlock Text="Run Snapinator at Windows Startup (current user only)" /></CheckBox>
+            <CheckBox Margin="2,4"  IsChecked="{Binding Path=AutostartOnLogon}"><TextBlock Text="Run Snapinator at Windows Startup (current user only)" /></CheckBox>
             <CheckBox Margin="2,4"  IsChecked="{Binding Path=CheckForUpdates}"><TextBlock Text="Check for updates" /></CheckBox>
         </StackPanel>
     </Grid>

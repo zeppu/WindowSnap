@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Overlay.Core.Configuration;
-using Overlay.Core.Configuration.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Overlay.ViewModels
+namespace Overlay.ViewModels.ConfigurationViewModels
 {
     public class LayoutConfigurationViewModel : ReactiveObject, ILayoutConfigurationViewModel
     {

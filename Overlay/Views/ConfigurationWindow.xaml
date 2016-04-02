@@ -6,20 +6,21 @@
         xmlns:local="clr-namespace:Overlay.Views"
         xmlns:viewModels="clr-namespace:Overlay.ViewModels"
         xmlns:core="clr-namespace:Overlay.Core"
+        xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
         mc:Ignorable="d"
         Title="Options" Height="411" Width="904"
         d:DataContext="{d:DesignInstance viewModels:ConfigurationViewModel}" WindowStartupLocation="CenterScreen" Icon="/Overlay;component/Assets/process.png"
         >
     <Window.Resources>
         <core:ViewModelSelector x:Key="ModelSelector">
-            <core:DataTemplateMapping ViewModelType="viewModels:LayoutConfigurationViewModel">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:LayoutConfigurationViewModel">
                 <core:DataTemplateMapping.Template>
                     <DataTemplate>
                         <local:LayoutConfigurationView></local:LayoutConfigurationView>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>
-            <core:DataTemplateMapping ViewModelType="viewModels:InterfaceConfigurationViewModel">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:InterfaceConfigurationViewModel">
                 <core:DataTemplateMapping.Template>
                     <DataTemplate>
                         <local:InterfaceConfigurationView></local:InterfaceConfigurationView>
