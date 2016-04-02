@@ -157,7 +157,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\AreaViewModel.cs" />
+    <Compile Include="ViewModels\ColumnLayoutEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\InterfaceConfigurationViewModel.cs" />
     <Compile Include="ViewModels\IConfigurationPartViewModel.cs" />
     <Compile Include="ViewModels\IConfigurationViewModel.cs" />
     <Compile Include="ViewModels\LayoutConfigurationViewModel.cs" />
@@ -166,8 +168,14 @@
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ColumnLayoutEditorView.xaml.cs">
+      <DependentUpon>ColumnLayoutEditorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InterfaceConfigurationView.xaml.cs">
+      <DependentUpon>InterfaceConfigurationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LayoutConfigurationView.xaml.cs">
       <DependentUpon>LayoutConfigurationView.xaml</DependentUpon>
@@ -224,7 +232,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ColumnLayoutEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InterfaceConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

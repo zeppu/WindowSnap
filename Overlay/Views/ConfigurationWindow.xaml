@@ -19,6 +19,13 @@
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>
+            <core:DataTemplateMapping ViewModelType="viewModels:InterfaceConfigurationViewModel">
+                <core:DataTemplateMapping.Template>
+                    <DataTemplate>
+                        <local:InterfaceConfigurationView></local:InterfaceConfigurationView>
+                    </DataTemplate>
+                </core:DataTemplateMapping.Template>
+            </core:DataTemplateMapping>
         </core:ViewModelSelector>
 
 

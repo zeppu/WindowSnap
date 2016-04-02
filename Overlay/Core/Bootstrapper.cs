@@ -120,8 +120,9 @@ namespace Overlay.Core
             c.Register<ConfigurationWindow>();
 
             c.RegisterCollection<IConfigurationPartViewModel>(new[]
-{
-                Lifestyle.Transient.CreateRegistration<LayoutConfigurationViewModel>(c)
+            {
+                Lifestyle.Transient.CreateRegistration<LayoutConfigurationViewModel>(c),
+                Lifestyle.Transient.CreateRegistration<InterfaceConfigurationViewModel>(c)
             });
 
             c.RegisterSingleton<ISystemTrayService, SystemTrayService>();
