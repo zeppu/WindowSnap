@@ -41,6 +41,9 @@
                 <RowDefinition ></RowDefinition>
             </Grid.RowDefinitions>
             <Label Content="Layouts" FontSize="20"></Label>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5" Command="{Binding Path=AddLayout}">
+                <Image Source="../Assets/add.png" Height="16"></Image>
+            </Button>
             <ListBox ItemTemplateSelector="{StaticResource ModelSelector}" Grid.Row="1" 
                      ItemsSource="{Binding Path=Layouts}" 
                      SelectedItem="{Binding Path=SelectedLayout}" Margin="4"

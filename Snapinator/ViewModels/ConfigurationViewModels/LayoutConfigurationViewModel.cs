@@ -50,7 +50,7 @@ namespace Snapinator.ViewModels.ConfigurationViewModels
             AddLayout.Subscribe(x => Layouts.Add(new ColumnLayoutEditorViewModel()
             {
                 Name = "NewLayout" + (Layouts.Count + 1),
-                DisplayName = "New Column Layout" + (Layouts.Count + 1),
+                DisplayName = "New Column Layout #" + (Layouts.Count + 1),
             }));
         }
     }
