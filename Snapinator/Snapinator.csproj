@@ -7,8 +7,8 @@
     <ProjectGuid>{7D635716-6F14-4C67-99FC-30B137E3E881}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Overlay</RootNamespace>
-    <AssemblyName>Overlay</AssemblyName>
+    <RootNamespace>Snapinator</RootNamespace>
+    <AssemblyName>Snapinator</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -197,6 +197,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Resource Include="Assets\App.ico" />
     <Resource Include="FodyWeavers.xml" />

@@ -6,11 +6,11 @@ using Anotar.NLog;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Overlay")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Snapinator")]
+[assembly: AssemblyDescription("A window snapping utility")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Overlay")]
+[assembly: AssemblyCompany("Glyde")]
+[assembly: AssemblyProduct("Snapinator")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
