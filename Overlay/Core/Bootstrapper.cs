@@ -44,14 +44,14 @@ namespace Overlay.Core
             MessageBus.Current.Listen<ShowAboutBoxMessage>().Subscribe(message =>
             {
                 var view = c.GetInstance<AboutWindow>();
-                view.Show();
+                view.ShowDialog();
             });
 
             MessageBus.Current.Listen<ShowConfigurationMessage>()
                 .Subscribe(message =>
                 {
                     var view = c.GetInstance<ConfigurationWindow>();
-                    view.Show();
+                    view.ShowDialog();
                 });
 
             MessageBus.Current.Listen<TerminateAppMessage>().Subscribe(message =>
