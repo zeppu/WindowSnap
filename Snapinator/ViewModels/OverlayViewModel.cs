@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Forms;
-using System.Windows.Ink;
-using System.Windows.Media;
-using Overlay.Core.Configuration;
-using Overlay.Core.Configuration.Model;
+﻿using System.Windows.Media;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Snapinator.Core.Configuration;
 
-namespace Overlay.ViewModels
+namespace Snapinator.ViewModels
 {
     public class OverlayViewModel : ReactiveObject, IOverlayViewModel
     {

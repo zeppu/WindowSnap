@@ -1,4 +1,4 @@
-﻿namespace Overlay.Core.SystemTray
+﻿namespace Snapinator.Core.SystemTray
 {
     public class SystemTrayNotificationService : ISystemTrayNotificationService
     {

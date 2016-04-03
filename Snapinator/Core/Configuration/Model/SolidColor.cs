@@ -2,7 +2,7 @@
 using System.Windows.Media;
 using System.Xml.Serialization;
 
-namespace Overlay.Core.Configuration.Model
+namespace Snapinator.Core.Configuration.Model
 {
     public class SolidColor
     {

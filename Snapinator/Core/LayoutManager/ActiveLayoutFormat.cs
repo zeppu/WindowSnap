@@ -1,4 +1,4 @@
-namespace Overlay.Core.LayoutManager
+namespace Snapinator.Core.LayoutManager
 {
     public enum ActiveLayoutFormat
     {

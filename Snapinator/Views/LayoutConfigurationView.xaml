@@ -1,13 +1,11 @@
-﻿<UserControl x:Class="Overlay.Views.LayoutConfigurationView"
+﻿<UserControl x:Class="Snapinator.Views.LayoutConfigurationView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Overlay.Views"
-             xmlns:viewModels="clr-namespace:Overlay.ViewModels"
-             xmlns:core="clr-namespace:Overlay.Core"
-             xmlns:model="clr-namespace:Overlay.Core.Configuration.Model"
-             xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:core="clr-namespace:Snapinator.Core"
+             xmlns:configurationViewModels="clr-namespace:Snapinator.ViewModels.ConfigurationViewModels"
+             xmlns:views="clr-namespace:Snapinator.Views"
 
              d:DataContext="{d:DesignInstance configurationViewModels:LayoutConfigurationViewModel}"
              mc:Ignorable="d" Background="White" d:DesignHeight="400" d:DesignWidth="650">
@@ -25,7 +23,7 @@
             <core:DataTemplateMapping ViewModelType="configurationViewModels:ColumnLayoutEditorViewModel">
                 <core:DataTemplateMapping.Template>
                     <DataTemplate DataType="{x:Type configurationViewModels:ColumnLayoutEditorViewModel}">
-                        <local:ColumnLayoutEditorView></local:ColumnLayoutEditorView>
+                        <views:ColumnLayoutEditorView></views:ColumnLayoutEditorView>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>

@@ -1,6 +1,6 @@
-﻿using Overlay.Core.Configuration.Model;
+﻿using Snapinator.Core.Configuration.Model;
 
-namespace Overlay.ViewModels.ConfigurationViewModels
+namespace Snapinator.ViewModels.ConfigurationViewModels
 {
     public interface ILayoutEditorViewModel
     {

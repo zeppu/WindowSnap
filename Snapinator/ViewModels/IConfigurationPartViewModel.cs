@@ -1,4 +1,4 @@
-﻿namespace Overlay.ViewModels
+﻿namespace Snapinator.ViewModels
 {
     public interface IConfigurationPartViewModel
     {

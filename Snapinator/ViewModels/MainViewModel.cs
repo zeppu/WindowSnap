@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace Overlay.ViewModels
+namespace Snapinator.ViewModels
 {
     public class MainViewModel : ReactiveObject, IMainViewModel
     {

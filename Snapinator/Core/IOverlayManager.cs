@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 using Anotar.NLog;
-using Overlay.Core.Configuration;
-using Overlay.Core.Configuration.Model;
-using Overlay.Core.LayoutManager;
-using Overlay.Messages;
-using Overlay.Native;
-using Overlay.ViewModels;
-using Overlay.Views;
-using Cursor = System.Windows.Forms.Cursor;
-using Point = System.Drawing.Point;
+using Snapinator.Core.LayoutManager;
+using Snapinator.Messages;
+using Snapinator.ViewModels;
+using Snapinator.Views;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public interface IOverlayManager
     {

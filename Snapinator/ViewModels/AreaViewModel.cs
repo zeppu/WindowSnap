@@ -1,8 +1,6 @@
-using System.Drawing;
-using System.Windows.Media;
 using ReactiveUI;
 
-namespace Overlay.ViewModels
+namespace Snapinator.ViewModels
 {
     public class AreaViewModel : ReactiveObject
     {

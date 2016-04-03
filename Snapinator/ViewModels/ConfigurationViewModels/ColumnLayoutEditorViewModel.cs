@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
-using Overlay.Core.Configuration.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Snapinator.Core.Configuration.Model;
 
-namespace Overlay.ViewModels.ConfigurationViewModels
+namespace Snapinator.ViewModels.ConfigurationViewModels
 {
     public class ColumnLayoutEditorViewModel : ReactiveObject, IColumnLayoutEditorViewModel
     {

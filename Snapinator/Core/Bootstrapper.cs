@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Interop;
 using Anotar.NLog;
-using Overlay.Core.Configuration;
-using Overlay.Core.Hooks;
-using Overlay.Core.Hotkeys;
-using Overlay.Core.LayoutManager;
-using Overlay.Core.SystemTray;
-using Overlay.Messages;
-using Overlay.ViewModels;
-using Overlay.ViewModels.ConfigurationViewModels;
-using Overlay.Views;
 using ReactiveUI;
 using SimpleInjector;
+using Snapinator.Core.Configuration;
+using Snapinator.Core.Hooks;
+using Snapinator.Core.Hotkeys;
+using Snapinator.Core.LayoutManager;
+using Snapinator.Core.SystemTray;
+using Snapinator.Messages;
+using Snapinator.ViewModels;
+using Snapinator.ViewModels.ConfigurationViewModels;
+using Snapinator.Views;
 using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public class Bootstrapper
     {

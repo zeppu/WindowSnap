@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Overlay.ViewModels
+namespace Snapinator.ViewModels
 {
     public interface IConfigurationViewModel
     {

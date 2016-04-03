@@ -2,9 +2,9 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Overlay.Native;
+using Snapinator.Native;
 
-namespace Overlay.Core.Hotkeys
+namespace Snapinator.Core.Hotkeys
 {
     public sealed class Hotkey : IDisposable
     {

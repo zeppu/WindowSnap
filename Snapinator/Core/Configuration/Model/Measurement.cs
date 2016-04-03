@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Globalization;
-using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
-namespace Overlay.Core.Configuration.Model
+namespace Snapinator.Core.Configuration.Model
 {
     [Serializable]
     public class Measurement

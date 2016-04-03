@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Overlay.Core.Configuration.Model
+namespace Snapinator.Core.Configuration.Model
 {
     [Serializable]    
     public class Column : Area

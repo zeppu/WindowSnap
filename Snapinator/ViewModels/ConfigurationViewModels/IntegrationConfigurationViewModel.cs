@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace Overlay.ViewModels.ConfigurationViewModels
+namespace Snapinator.ViewModels.ConfigurationViewModels
 {
     public interface IIntegrationConfigurationViewModel : IConfigurationPartViewModel
     {

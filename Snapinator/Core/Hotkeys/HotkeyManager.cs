@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace Overlay.Core.Hotkeys
+namespace Snapinator.Core.Hotkeys
 {
     public class HotkeyManager : IHotkeyManger
     {

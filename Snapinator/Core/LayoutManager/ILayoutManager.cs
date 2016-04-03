@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
-using Overlay.Core.Configuration.Model;
+using Snapinator.Core.Configuration.Model;
 
-namespace Overlay.Core.LayoutManager
+namespace Snapinator.Core.LayoutManager
 {
     public interface ILayoutManager
     {

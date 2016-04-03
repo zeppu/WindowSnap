@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Messages
+namespace Snapinator.Messages
 {
     public class EndingWindowDrag
     {

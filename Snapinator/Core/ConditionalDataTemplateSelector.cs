@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public class ConditionalDataTemplateSelector : DataTemplateSelector, IList<ConditionalDataTemplate>, ICollection, IList
     {

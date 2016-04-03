@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using Overlay.ViewModels;
+using Snapinator.ViewModels;
 
-namespace Overlay.Views
+namespace Snapinator.Views
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml

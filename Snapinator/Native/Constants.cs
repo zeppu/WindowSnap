@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Native
+namespace Snapinator.Native
 {
     public class Constants
     {

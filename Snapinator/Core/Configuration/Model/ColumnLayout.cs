@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Serialization;
 
-namespace Overlay.Core.Configuration.Model
+namespace Snapinator.Core.Configuration.Model
 {
     [Serializable]
     public class ColumnLayout : Layout

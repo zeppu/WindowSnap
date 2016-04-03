@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Core.Hooks
+namespace Snapinator.Core.Hooks
 {
     public interface IWinEventHookManager : IDisposable
     {

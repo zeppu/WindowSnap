@@ -1,10 +1,9 @@
 using System;
-using Anotar.NLog;
-using Overlay.Messages;
-using Overlay.Native;
 using ReactiveUI;
+using Snapinator.Messages;
+using Snapinator.Native;
 
-namespace Overlay.Core.Hooks
+namespace Snapinator.Core.Hooks
 {
     class WinEventHookManager : IWinEventHookManager
     {

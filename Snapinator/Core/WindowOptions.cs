@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public class WindowOptions
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public static class ServiceProviderExtensions
     {

@@ -4,12 +4,11 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Anotar.NLog;
-using Overlay.Core.Configuration.Model;
-using Overlay.Core.LayoutManager;
-using Overlay.Messages;
-using Overlay.Native;
+using Snapinator.Core.LayoutManager;
+using Snapinator.Messages;
+using Snapinator.Native;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public interface IDockingManager
     {

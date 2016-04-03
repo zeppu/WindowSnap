@@ -1,4 +1,4 @@
-﻿namespace Overlay.Core
+﻿namespace Snapinator.Core
 {
     public interface IUserNotificationService
     {

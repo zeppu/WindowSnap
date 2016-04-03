@@ -1,8 +1,8 @@
 using System;
 using System.Text;
-using Overlay.Native;
+using Snapinator.Native;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public class WindowInformation
     {

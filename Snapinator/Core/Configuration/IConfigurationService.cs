@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Overlay.Core.Configuration.Model;
+using Snapinator.Core.Configuration.Model;
 
-namespace Overlay.Core.Configuration
+namespace Snapinator.Core.Configuration
 {
     public interface IConfigurationService
     {

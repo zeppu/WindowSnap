@@ -1,4 +1,4 @@
-﻿namespace Overlay.Messages
+﻿namespace Snapinator.Messages
 {
     public class TerminateAppMessage
     {

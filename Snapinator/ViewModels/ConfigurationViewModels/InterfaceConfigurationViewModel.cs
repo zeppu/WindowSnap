@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
-namespace Overlay.ViewModels.ConfigurationViewModels
+namespace Snapinator.ViewModels.ConfigurationViewModels
 {
     public class InterfaceConfigurationViewModel : ReactiveObject, IConfigurationPartViewModel
     {

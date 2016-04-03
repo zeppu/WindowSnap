@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
-using Overlay.Core.Configuration;
-using Overlay.Core.Configuration.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Snapinator.Core.Configuration;
 
-namespace Overlay.ViewModels.ConfigurationViewModels
+namespace Snapinator.ViewModels.ConfigurationViewModels
 {
     public class LayoutConfigurationViewModel : ReactiveObject, ILayoutConfigurationViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Native
+namespace Snapinator.Native
 {
     [Flags()]
     public enum SetWindowPosFlags : uint

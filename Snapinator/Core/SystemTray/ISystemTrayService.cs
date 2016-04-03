@@ -1,6 +1,6 @@
 using System;
 
-namespace Overlay.Core.SystemTray
+namespace Snapinator.Core.SystemTray
 {
     public interface ISystemTrayService : ISystemTrayNotificationService
     {

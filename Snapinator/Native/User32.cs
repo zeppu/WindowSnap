@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Overlay.Native
+namespace Snapinator.Native
 {
     internal class User32
     {

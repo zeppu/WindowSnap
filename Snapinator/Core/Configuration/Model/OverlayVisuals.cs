@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Overlay.Core.Configuration.Model
+namespace Snapinator.Core.Configuration.Model
 {
     [Serializable]
     public class OverlayVisuals

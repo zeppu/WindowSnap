@@ -1,7 +1,7 @@
 ﻿using System.Windows;
-using Overlay.Core;
+using Snapinator.Core;
 
-namespace Overlay
+namespace Snapinator
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using ReactiveUI;
 
-namespace Overlay.Core.SystemTray
+namespace Snapinator.Core.SystemTray
 {
     class SystemTrayService : ISystemTrayService, IDisposable
     {

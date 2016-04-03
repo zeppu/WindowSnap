@@ -1,4 +1,4 @@
-﻿namespace Overlay.Core.Hooks
+﻿namespace Snapinator.Core.Hooks
 {
     public class MoveResizeEventHook : IWinEventHook
     {

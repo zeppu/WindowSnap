@@ -1,29 +1,29 @@
-﻿<Window x:Class="Overlay.Views.ConfigurationWindow"
+﻿<Window x:Class="Snapinator.Views.ConfigurationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Overlay.Views"
-        xmlns:viewModels="clr-namespace:Overlay.ViewModels"
-        xmlns:core="clr-namespace:Overlay.Core"
-        xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
+        xmlns:core="clr-namespace:Snapinator.Core"
+        xmlns:views="clr-namespace:Snapinator.Views"
+        xmlns:configurationViewModels="clr-namespace:Snapinator.ViewModels.ConfigurationViewModels"
+        xmlns:viewModels="clr-namespace:Snapinator.ViewModels"
         mc:Ignorable="d"
         Title="Options" Height="600" Width="900" ResizeMode="NoResize"
-        d:DataContext="{d:DesignInstance viewModels:ConfigurationViewModel}" WindowStartupLocation="CenterScreen" Icon="/Overlay;component/Assets/process.png"
+        d:DataContext="{d:DesignInstance viewModels:ConfigurationViewModel}" WindowStartupLocation="CenterScreen" Icon="/Snapinator;component/Assets/process.png"
         >
     <Window.Resources>
         <core:ViewModelSelector x:Key="ModelSelector">
             <core:DataTemplateMapping ViewModelType="configurationViewModels:LayoutConfigurationViewModel">
                 <core:DataTemplateMapping.Template>
                     <DataTemplate>
-                        <local:LayoutConfigurationView></local:LayoutConfigurationView>
+                        <views:LayoutConfigurationView></views:LayoutConfigurationView>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>
             <core:DataTemplateMapping ViewModelType="configurationViewModels:InterfaceConfigurationViewModel">
                 <core:DataTemplateMapping.Template>
                     <DataTemplate>
-                        <local:InterfaceConfigurationView></local:InterfaceConfigurationView>
+                        <views:InterfaceConfigurationView></views:InterfaceConfigurationView>
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>

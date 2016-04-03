@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ReactiveUI;
 
-namespace Overlay.Core
+namespace Snapinator.Core
 {
     public class ViewModelSelector : DataTemplateSelector, IList<DataTemplateMapping>, ICollection, IList
     {

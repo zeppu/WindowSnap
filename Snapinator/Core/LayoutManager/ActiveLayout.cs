@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Overlay.Core.LayoutManager
+namespace Snapinator.Core.LayoutManager
 {
     public class ActiveLayout
     {
