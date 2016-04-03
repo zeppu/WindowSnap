@@ -25,5 +25,10 @@ namespace Overlay.Views
             DataContext = viewModel;
             InitializeComponent();
         }
+
+        private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -186,7 +186,7 @@
         <Rectangle Height="1" Fill="{StaticResource BrownishBrush}" Margin="10,2" Grid.Row="1"></Rectangle>
 
         <StackPanel Grid.Row="2" Margin="0,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
-            <Button Content="Save Settings" Padding="10,5" IsDefault="True" Command="{Binding Path=SaveSettingsCommand}" ></Button>
+            <Button Content="Save Settings" Padding="10,5" IsDefault="True" Command="{Binding Path=SaveSettingsCommand}" Click="SaveSettingsButton_Click" ></Button>
             <Button Content="Cancel" Padding="10,5" Margin="10,0" IsCancel="True" ></Button>
         </StackPanel>
     </Grid>
