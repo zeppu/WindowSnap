@@ -61,7 +61,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Label Content="{Binding Path=SelectedLayout.Name}" Grid.Row="0" FontSize="20" Padding="0,5" MinHeight="30" ></Label>
+            <Label Content="{Binding Path=SelectedLayout.DisplayName}" Grid.Row="0" FontSize="20" Padding="0,5" MinHeight="30" ></Label>
 
             <Grid Grid.Row="1" Margin="4,0">
                 <Grid.ColumnDefinitions>
