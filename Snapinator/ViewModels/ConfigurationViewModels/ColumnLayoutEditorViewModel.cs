@@ -157,7 +157,7 @@ namespace Snapinator.ViewModels.ConfigurationViewModels
 
                     return $"{Value}";
                 })
-                .ToPropertyEx(this, x => x.Display);
+                .ToPropertyEx(this, x => x.Display, ToString());
         }
 
         #region Conversion Ops
