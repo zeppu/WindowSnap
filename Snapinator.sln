@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlay", "Overlay\Overlay.csproj", "{7D635716-6F14-4C67-99FC-30B137E3E881}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapinator", "Snapinator\Snapinator.csproj", "{7D635716-6F14-4C67-99FC-30B137E3E881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Overlay.Tests", "Overlay.Tests\Overlay.Tests.csproj", "{A271FC2C-44B2-48AA-B5CC-BECBA89CE955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snapinator.Tests", "Snapinator.Tests\Snapinator.Tests.csproj", "{A271FC2C-44B2-48AA-B5CC-BECBA89CE955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
