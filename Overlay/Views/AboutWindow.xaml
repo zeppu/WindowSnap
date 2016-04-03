@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="About ScreenCommander" Height="263" Width="464" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Assets/App.ico">
+        Title="About" Height="263" Width="464" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Assets/App.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="65"/>
@@ -16,10 +16,15 @@
         </Grid.ColumnDefinitions>
         <Rectangle Grid.ColumnSpan="2" Fill="{StaticResource ShadedLavanderBrush}" Height="77" Width="458"/>
 
-        <Image x:Name="image" Source="/Assets/App.ico" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
-        <Label x:Name="textBlock" Grid.Column="1" Margin="10,0,0,10" Content="ScreenCommander" VerticalAlignment="Bottom" FontSize="32" FontWeight="Bold" FontFamily="Segoe UI Semibold" Foreground="#FFFFFF" Padding="5,5,5,0"/>
-        <Label x:Name="label" Content="Copyright (c) something" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button x:Name="button" Content="OK" Grid.Column="1" Margin="0,0,10,10" Grid.Row="1" IsCancel="True" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="78"/>
+        <Image Grid.Row="0" Grid.Column="0" Source="/Assets/App.ico" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+        <Label Grid.Row="0" Grid.Column="1" Margin="10,0,87,10" Content="Snapinator" VerticalAlignment="Bottom" FontSize="32" FontWeight="Bold" 
+               FontFamily="Segoe UI Semibold" 
+               Foreground="#FFFFFF" 
+               Padding="5,5,5,0" HorizontalAlignment="Left"/>
+        <Label  Content="Version 0.0.1" Grid.Column="1" Margin="10,10,0,0" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"/>
+        <Label Content="Copyright © 2016" Grid.Column="1" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button Content="OK" Grid.Column="1" Margin="0,0,10,10" Grid.Row="1" IsCancel="True" Height="28" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="78"/>
+        
 
     </Grid>
 </Window>
