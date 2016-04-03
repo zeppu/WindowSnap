@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:model="clr-namespace:Snapinator.Core.Configuration.Model"
+             xmlns:configurationViewModels="clr-namespace:Snapinator.ViewModels.ConfigurationViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="375" d:DesignWidth="666"
              d:DataContext="{d:DesignInstance configurationViewModels:ColumnLayoutEditorViewModel}"
@@ -41,22 +42,7 @@
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" Width="150"></GridViewColumn>
                         <GridViewColumn Header="Width" DisplayMemberBinding="{Binding Path=Width.Display}" Width="100">
-                            <!--<GridViewColumn.CellTemplateSelector>
-                                <core:ConditionalDataTemplateSelector ComperandName="Unit">
-                                    <core:ConditionalDataTemplate Comperand="{x:Static model:MeasurementUnit.Percentage}" DataType="{x:Type configurationViewModels:MeasurementEditModel}">
-                                        <TextBlock>
-                                            <Run Text="{Binding Path=Value}"></Run>
-                                            <Run Text="%"></Run>
-                                        </TextBlock>
-                                    </core:ConditionalDataTemplate>
-                                    <core:ConditionalDataTemplate Comperand="{x:Static model:MeasurementUnit.Pixels}" DataType="{x:Type configurationViewModels:MeasurementEditModel}">
-                                        <TextBlock>
-                                            <Run Text="{Binding Path=Value}"></Run>
-                                            <Run Text="px"></Run>
-                                        </TextBlock>
-                                    </core:ConditionalDataTemplate>
-                                </core:ConditionalDataTemplateSelector>
-                            </GridViewColumn.CellTemplateSelector>-->
+
                         </GridViewColumn>
                         
                     </GridView>
