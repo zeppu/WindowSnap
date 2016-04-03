@@ -53,8 +53,12 @@ namespace Overlay.ViewModels.ConfigurationViewModels
 
         public Layout CreateLayout()
         {
-            var newLayout = new ColumnLayout();
+            var newLayout = new ColumnLayout
+            {
+                IsActive = false
+            };
             CommitChangesToLayoutWorker(newLayout);
+
             return newLayout;
         }
 
@@ -71,7 +75,6 @@ namespace Overlay.ViewModels.ConfigurationViewModels
         {
             columnLayout.Name = this.Name;
             columnLayout.DisplayName = this.DisplayName;
-            columnLayout.IsActive = false;
             columnLayout.Columns = this.Columns
                 .Select(
                     (vm, index) => new Column()
