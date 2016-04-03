@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="Snapinator.Views.LayoutConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:core="clr-namespace:Snapinator.Core"
+             xmlns:configurationViewModels="clr-namespace:Snapinator.ViewModels.ConfigurationViewModels"
+             xmlns:views="clr-namespace:Snapinator.Views"
+
+             d:DataContext="{d:DesignInstance configurationViewModels:LayoutConfigurationViewModel}"
+             mc:Ignorable="d" Background="White" d:DesignHeight="400" d:DesignWidth="650">
+    <UserControl.Resources>
+        <core:ViewModelSelector x:Key="ModelSelector">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:ColumnLayoutEditorViewModel">
+                <core:DataTemplateMapping.Template>
+                    <DataTemplate DataType="{x:Type configurationViewModels:ColumnLayoutEditorViewModel}">
+                        <Label Content="{Binding Path=DisplayName}"></Label>
+                    </DataTemplate>
+                </core:DataTemplateMapping.Template>
+            </core:DataTemplateMapping>
+        </core:ViewModelSelector>
+        <core:ViewModelSelector x:Key="EditorViewSelector">
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:ColumnLayoutEditorViewModel">
+                <core:DataTemplateMapping.Template>
+                    <DataTemplate DataType="{x:Type configurationViewModels:ColumnLayoutEditorViewModel}">
+                        <views:ColumnLayoutEditorView></views:ColumnLayoutEditorView>
+                    </DataTemplate>
+                </core:DataTemplateMapping.Template>
+            </core:DataTemplateMapping>
+        </core:ViewModelSelector>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="326*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Content="Layouts" FontSize="20"></Label>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Padding="5" Command="{Binding Path=AddLayout}">
+                <Image Source="../Assets/add.png" Height="16"></Image>
+            </Button>
+            <ListBox ItemTemplateSelector="{StaticResource ModelSelector}" Grid.Row="1" 
+                     ItemsSource="{Binding Path=Layouts}" 
+                     SelectedItem="{Binding Path=SelectedLayout}" Margin="4"
+                     BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                     VerticalAlignment="Stretch"
+                     >
+            </ListBox>
+        </Grid>
+        
+        <Rectangle Grid.Column="1" Fill="{StaticResource BrownishBrush}" Margin="2,10"></Rectangle>
+
+        <Grid Grid.Column="2" Margin="4,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding Path=SelectedLayout.DisplayName}" Grid.Row="0" FontSize="20" Padding="0,5" MinHeight="30" ></Label>
+
+            <Grid Grid.Row="1" Margin="4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Details" FontWeight="Bold"></TextBlock>
+                <Rectangle Grid.Column="2" Fill="{StaticResource BrownishBrush}" Height="1"></Rectangle>
+            </Grid>
+            
+            <Grid Grid.Row="2" Margin="4,4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="85*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Content="Name" Style="{StaticResource TextboxLabel}" />
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="3" Text="{Binding Path=SelectedLayout.Name}" Padding="2,4"></TextBox>
+
+                <Label Grid.Column="0" Grid.Row="1" Content="Display Name" Style="{StaticResource TextboxLabel}" ></Label>
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="3" Text="{Binding Path=SelectedLayout.DisplayName}" Padding="2,4"></TextBox>
+            </Grid>
+            <ContentControl Content="{Binding Path=SelectedLayout}" Grid.Row="3" Margin="4,4,0,0" 
+                            ContentTemplateSelector="{StaticResource EditorViewSelector}">
+
+            </ContentControl>
+        </Grid>
+        
+        
+    </Grid>
+</UserControl>
