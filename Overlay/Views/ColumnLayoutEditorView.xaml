@@ -15,6 +15,7 @@
     <Grid Background="White" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -28,6 +29,9 @@
             <Rectangle Grid.Column="2" Fill="{StaticResource BrownishBrush}" Height="1"></Rectangle>
         </Grid>
         <Grid Grid.Row="1">
+            <Button Content="Add" Command="{Binding Path=AddItemCommand}" HorizontalAlignment="Left"></Button>
+        </Grid>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -40,8 +44,8 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}" Width="150"></GridViewColumn>
-                        <GridViewColumn Header="Width" DisplayMemberBinding="{Binding Path=Width}" Width="100">
-                            <GridViewColumn.CellTemplateSelector>
+                        <GridViewColumn Header="Width" DisplayMemberBinding="{Binding Path=Width.Display}" Width="100">
+                            <!--<GridViewColumn.CellTemplateSelector>
                                 <core:ConditionalDataTemplateSelector ComperandName="Unit">
                                     <core:ConditionalDataTemplate Comperand="{x:Static model:MeasurementUnit.Percentage}" DataType="{x:Type configurationViewModels:MeasurementEditModel}">
                                         <TextBlock>
@@ -56,7 +60,7 @@
                                         </TextBlock>
                                     </core:ConditionalDataTemplate>
                                 </core:ConditionalDataTemplateSelector>
-                            </GridViewColumn.CellTemplateSelector>
+                            </GridViewColumn.CellTemplateSelector>-->
                         </GridViewColumn>
                         
                     </GridView>

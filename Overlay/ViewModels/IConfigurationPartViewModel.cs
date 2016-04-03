@@ -3,5 +3,6 @@
     public interface IConfigurationPartViewModel
     {
         string Title { get; }
+        void CommitChanges();
     }
 }

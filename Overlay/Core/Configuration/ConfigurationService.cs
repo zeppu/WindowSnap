@@ -11,8 +11,13 @@ namespace Overlay.Core.Configuration
     public class ConfigurationService : IConfigurationService
     {
         private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(ConfigurationFile));
-
         private readonly List<Layout> _layouts = new List<Layout>();
+
+        public ConfigurationService()
+        {
+
+        }
+
 
         public Layout GetActiveLayout()
         {
@@ -73,16 +78,7 @@ namespace Overlay.Core.Configuration
 
         public void LoadConfiguration()
         {
-            var userappDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            var dataDirectoryPath = Path.Combine(userappDataDirectory, "Snapinator");
-            var dataDirectoryInfo = new DirectoryInfo(dataDirectoryPath);
-            if (!dataDirectoryInfo.Exists)
-            {
-                dataDirectoryInfo.Create();
-            }
-
-            var configurationFileInfo = new FileInfo(Path.Combine(dataDirectoryPath, "config.xml"));
+            var configurationFileInfo = GetConfigurationFileInfo();
             ConfigurationFile configurationFile = null;
             if (!configurationFileInfo.Exists)
             {
@@ -96,15 +92,66 @@ namespace Overlay.Core.Configuration
             _layouts.AddRange(configurationFile.Layouts);
         }
 
+        private static FileInfo GetConfigurationFileInfo()
+        {
+            var dataDirectoryPath = GetDataDirectoryPath();
+
+            var configurationFileInfo = new FileInfo(Path.Combine(dataDirectoryPath, "config.xml"));
+            return configurationFileInfo;
+        }
+
+        private static string GetDataDirectoryPath()
+        {
+            var userappDataDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            var dataDirectoryPath = Path.Combine(userappDataDirectory, "Snapinator");
+            var dataDirectoryInfo = new DirectoryInfo(dataDirectoryPath);
+            if (!dataDirectoryInfo.Exists)
+            {
+                dataDirectoryInfo.Create();
+            }
+
+            return dataDirectoryPath;
+        }
+
+        public void SaveConfiguration()
+        {
+            var configurationFileInfo = GetConfigurationFileInfo();
+            var configurationFile = new ConfigurationFile();
+            configurationFile.Layouts.AddRange(_layouts);
+
+            SaveConfigurationFile(configurationFile, configurationFileInfo);
+        }
+
         public IEnumerable<Layout> GetLayouts()
         {
             return _layouts;
         }
 
-        public ConfigurationFile LoadConfigurationFile(FileInfo layoutsFile)
+        public void AddLayout(Layout newLayout)
+        {
+            _layouts.Add(newLayout);
+        }
+
+        public Layout GetLayoutByName(string originalName)
+        {
+            return _layouts.First(layout => layout.Name.Equals(originalName));
+        }
+
+        internal void SaveConfigurationFile(ConfigurationFile configurationFile, FileInfo configurationFileInfo)
+        {
+            using (var f = configurationFileInfo.OpenWrite())
+            using (var writer = new StreamWriter(f))
+            {
+                Serializer.Serialize(writer, configurationFile);
+                writer.Flush();
+            }
+        }
+
+        internal ConfigurationFile LoadConfigurationFile(FileInfo configurationFileInfo)
         {
             ConfigurationFile configFile;
-            using (var f = layoutsFile.OpenRead())
+            using (var f = configurationFileInfo.OpenRead())
             {
                 configFile = (ConfigurationFile)Serializer.Deserialize(f);
                 f.Flush();
@@ -113,18 +160,9 @@ namespace Overlay.Core.Configuration
             return configFile;
         }
 
-        public ConfigurationFile InitializeNewConfiguration(FileInfo layoutsFile)
+        internal ConfigurationFile InitializeNewConfiguration(FileInfo configurationFileInfo)
         {
-            using (var f = layoutsFile.OpenWrite())
-            using (var writer = new StreamWriter(f))
-            {
-                return InitializeNewConfiguration(writer);
-                writer.Flush();
-            }
-        }
-        public ConfigurationFile InitializeNewConfiguration(TextWriter layoutsFile)
-        {
-            var configFile = new ConfigurationFile()
+            var configurationFile = new ConfigurationFile()
             {
                 Layouts =
                 {
@@ -132,9 +170,9 @@ namespace Overlay.Core.Configuration
                 }
             };
 
-            Serializer.Serialize(layoutsFile, configFile);
+            SaveConfigurationFile(configurationFile, configurationFileInfo);
 
-            return configFile;
+            return configurationFile;
         }
     }
 }

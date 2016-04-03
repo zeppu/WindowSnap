@@ -10,6 +10,10 @@ namespace Overlay.ViewModels.ConfigurationViewModels
     public class IntegrationConfigurationViewModel : ReactiveObject, IIntegrationConfigurationViewModel
     {
         public string Title => "Integration";
+        public void CommitChanges()
+        {
+
+        }
 
         public IReadOnlyReactiveList<KeyboardShortcutViewModel> KeyboardShortcuts { get; }
 

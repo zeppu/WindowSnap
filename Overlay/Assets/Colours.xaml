@@ -12,5 +12,7 @@
     <SolidColorBrush x:Key="BrownishBrush">#5B381D</SolidColorBrush>
     <SolidColorBrush x:Key="TealishBrush">#1D555B</SolidColorBrush>
     <SolidColorBrush x:Key="LightBrownishBrush">#D1C09C</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="GrayishBrush">#dedede</SolidColorBrush>
 
 </ResourceDictionary>

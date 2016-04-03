@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Overlay.Core.Configuration;
+using Overlay.Core.Configuration.Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -8,7 +9,29 @@ namespace Overlay.ViewModels.ConfigurationViewModels
 {
     public class LayoutConfigurationViewModel : ReactiveObject, ILayoutConfigurationViewModel
     {
+        private readonly IConfigurationService _configurationService;
         public string Title { get; } = "Layouts";
+
+        public void CommitChanges()
+        {
+            foreach (var layoutEditorViewModel in Layouts)
+            {
+                if (layoutEditorViewModel.IsNew)
+                {
+                    // add new layout
+                    var newLayout = layoutEditorViewModel.CreateLayout();
+                    _configurationService.AddLayout(newLayout);
+                    continue;
+                }
+
+                var originalName = layoutEditorViewModel.OriginalName;
+                if (string.IsNullOrEmpty(originalName))
+                    continue;
+
+                var layout = _configurationService.GetLayoutByName(originalName);
+                layoutEditorViewModel.CommitChangesToLayout(layout);
+            }
+        }
 
         public IReactiveList<ILayoutEditorViewModel> Layouts { get; }
 
@@ -19,9 +42,10 @@ namespace Overlay.ViewModels.ConfigurationViewModels
 
         public LayoutConfigurationViewModel(IConfigurationService configurationService)
         {
+            _configurationService = configurationService;
             Layouts = new ReactiveList<ILayoutEditorViewModel>(configurationService.GetLayouts().Select(c => new ColumnLayoutEditorViewModel(c)));
 
-
+            SelectedLayout = Layouts.FirstOrDefault();
 
             AddLayout = ReactiveCommand.Create();
             AddLayout.Subscribe(x => Layouts.Add(new ColumnLayoutEditorViewModel()
@@ -34,6 +58,8 @@ namespace Overlay.ViewModels.ConfigurationViewModels
 
     public interface ILayoutConfigurationViewModel : IConfigurationPartViewModel
     {
-
+        IReactiveList<ILayoutEditorViewModel> Layouts { get; }
+        ReactiveCommand<object> AddLayout { get; }
+        ILayoutEditorViewModel SelectedLayout { get; set; }
     }
 }

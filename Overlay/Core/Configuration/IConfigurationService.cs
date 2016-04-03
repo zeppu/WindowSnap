@@ -11,5 +11,9 @@ namespace Overlay.Core.Configuration
 
         void LoadConfiguration();
         IEnumerable<Layout> GetLayouts();
+
+        void AddLayout(Layout newLayout);
+        Layout GetLayoutByName(string originalName);
+        void SaveConfiguration();
     }
 }

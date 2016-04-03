@@ -163,6 +163,7 @@
     <Compile Include="ViewModels\AreaViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModels\ColumnLayoutEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModels\ILayoutEditorViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModels\InterfaceConfigurationViewModel.cs" />
     <Compile Include="ViewModels\ConfigurationViewModels\IntegrationConfigurationViewModel.cs" />
     <Compile Include="ViewModels\IConfigurationPartViewModel.cs" />
