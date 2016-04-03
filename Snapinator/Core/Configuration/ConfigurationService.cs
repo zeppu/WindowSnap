@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Mime;
 using System.Xml.Serialization;
-using Overlay.Core.Configuration.Model;
+using Snapinator.Core.Configuration.Model;
 
-namespace Overlay.Core.Configuration
+namespace Snapinator.Core.Configuration
 {
     public class ConfigurationService : IConfigurationService
     {
@@ -140,7 +139,7 @@ namespace Overlay.Core.Configuration
 
         internal void SaveConfigurationFile(ConfigurationFile configurationFile, FileInfo configurationFileInfo)
         {
-            using (var f = configurationFileInfo.OpenWrite())
+            using (var f = configurationFileInfo.Open(FileMode.Create, FileAccess.Write, FileShare.Read))
             using (var writer = new StreamWriter(f))
             {
                 Serializer.Serialize(writer, configurationFile);
@@ -151,7 +150,7 @@ namespace Overlay.Core.Configuration
         internal ConfigurationFile LoadConfigurationFile(FileInfo configurationFileInfo)
         {
             ConfigurationFile configFile;
-            using (var f = configurationFileInfo.OpenRead())
+            using (var f = configurationFileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 configFile = (ConfigurationFile)Serializer.Deserialize(f);
                 f.Flush();
