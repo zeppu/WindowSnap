@@ -8,6 +8,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Assets/Colours.xaml" />
                 <ResourceDictionary Source="Assets/ControlStyles.xaml" />
+                <ResourceDictionary Source="Assets/ControlStyles.Label.xaml" />
+                <ResourceDictionary Source="Assets/ControlStyles.Listbox.xaml" />
+                <ResourceDictionary Source="Assets/ControlStyles.ScrollViewer.xaml" />
+                <ResourceDictionary Source="Assets/ControlStyles.Scrollbar.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

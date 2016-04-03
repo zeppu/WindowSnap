@@ -65,6 +65,17 @@ namespace Overlay.Core.Configuration.Model
         {
 
         }
+
+        public Measurement()
+        {
+
+        }
+
+        public Measurement(double value, MeasurementUnit unit)
+        {
+            Value = value;
+            Unit = unit;
+        }
     }
 
     public enum MeasurementUnit

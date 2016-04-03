@@ -10,7 +10,7 @@
              d:DesignHeight="182.951" d:DesignWidth="350.656"
              d:DataContext="{d:DesignInstance configurationViewModels:InterfaceConfigurationViewModel }"
              >
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Background="White">
         <StackPanel Margin="2">
             <StackPanel.Resources>
                 <Style TargetType="CheckBox">
