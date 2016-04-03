@@ -11,7 +11,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance configurationViewModels:ColumnLayoutEditorViewModel}"
              >
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+    <Grid Background="White" >
         <Grid.Resources>
             <Style TargetType="Label">
                 <Setter Property="Padding" Value="0"></Setter>
@@ -27,7 +27,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="85*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>

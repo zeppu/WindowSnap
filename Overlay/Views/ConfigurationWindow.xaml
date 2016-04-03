@@ -8,7 +8,7 @@
         xmlns:core="clr-namespace:Overlay.Core"
         xmlns:configurationViewModels="clr-namespace:Overlay.ViewModels.ConfigurationViewModels"
         mc:Ignorable="d"
-        Title="Options" Height="411" Width="904"
+        Title="Options" Height="600" Width="900" ResizeMode="NoResize"
         d:DataContext="{d:DesignInstance viewModels:ConfigurationViewModel}" WindowStartupLocation="CenterScreen" Icon="/Overlay;component/Assets/process.png"
         >
     <Window.Resources>
@@ -60,7 +60,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image Source="../Assets/process.png" Margin="0,5"></Image>
-                                
+
                                 <TabPanel x:Name="headerPanel" Background="Transparent" Grid.Column="1" IsItemsHost="true" 
                                       Margin="10,2,2,0"
                                       KeyboardNavigation.TabIndex="1" Panel.ZIndex="1" 

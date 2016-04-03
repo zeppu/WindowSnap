@@ -58,10 +58,12 @@ namespace Overlay.ViewModels.ConfigurationViewModels
 
     public interface ILayoutEditorViewModel
     {
-
+        string Name { get; set; }
+        string DisplayName { get; set; }
     }
 
     public interface IColumnLayoutEditorViewModel : ILayoutEditorViewModel
     {
+
     }
 }
