@@ -7,10 +7,11 @@ using Snapinator.Core.Configuration.Model;
 
 namespace Snapinator.Core.Configuration
 {
-    public class ConfigurationService : IConfigurationService
+    public class ConfigurationService : IConfigurationService, IInterfaceSettingsProvider
     {
         private static readonly XmlSerializer Serializer = new XmlSerializer(typeof(ConfigurationFile));
         private readonly List<Layout> _layouts = new List<Layout>();
+        private readonly List<Setting> _interfaceSettings = new List<Setting>();
 
         public ConfigurationService()
         {
@@ -89,6 +90,7 @@ namespace Snapinator.Core.Configuration
             }
 
             _layouts.AddRange(configurationFile.Layouts);
+            _interfaceSettings.AddRange(configurationFile.Interface);
         }
 
         private static FileInfo GetConfigurationFileInfo()
@@ -116,8 +118,10 @@ namespace Snapinator.Core.Configuration
         public void SaveConfiguration()
         {
             var configurationFileInfo = GetConfigurationFileInfo();
+
             var configurationFile = new ConfigurationFile();
             configurationFile.Layouts.AddRange(_layouts);
+            configurationFile.Interface.AddRange(_interfaceSettings);
 
             SaveConfigurationFile(configurationFile, configurationFileInfo);
         }
@@ -156,6 +160,8 @@ namespace Snapinator.Core.Configuration
                 f.Flush();
             }
 
+            EnsureInterfaceSettingsPresent(configFile);
+
             return configFile;
         }
 
@@ -166,12 +172,47 @@ namespace Snapinator.Core.Configuration
                 Layouts =
                 {
                     (ColumnLayout)CreateDefault3ColumnLayout()
-                }
+                },
             };
+
+            EnsureInterfaceSettingsPresent(configurationFile);
 
             SaveConfigurationFile(configurationFile, configurationFileInfo);
 
             return configurationFile;
+        }
+
+        private void EnsureInterfaceSettingsPresent(ConfigurationFile configurationFile)
+        {
+            var names = Enum.GetNames(typeof(InterfaceSettings));
+
+            foreach (var name in names)
+            {
+                if (!configurationFile.Interface.Any(s => s.Id.Equals(name)))
+                {
+                    configurationFile.Interface.Add(new BooleanSetting(name, false));
+                }
+            }
+        }
+
+        T IInterfaceSettingsProvider.GetSetting<T>(InterfaceSettings setting)
+        {
+            var settingData = _interfaceSettings.FirstOrDefault(s => s.Id.Equals(setting.ToString()));
+
+            if (settingData == null)
+                return default(T);
+
+            return (T)settingData.GetValue();
+        }
+
+        void IInterfaceSettingsProvider.SetSetting<T>(InterfaceSettings setting, T value)
+        {
+            var settingData = _interfaceSettings.FirstOrDefault(s => s.Id.Equals(setting.ToString()));
+
+            if (settingData == null)
+                return;
+
+            settingData.SetValue(value);
         }
     }
 }

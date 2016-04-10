@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Anotar.NLog;
+using Snapinator.Core.Configuration;
+using Snapinator.Core.Configuration.Model;
 using Snapinator.Core.LayoutManager;
 using Snapinator.Messages;
 using Snapinator.Native;
@@ -27,10 +29,12 @@ namespace Snapinator.Core
         private readonly Dictionary<WindowInformation, Rectangle> _preDockWindowDimensions = new Dictionary<WindowInformation, Rectangle>();
 
         private readonly ILayoutManager _layoutManager;
+        private readonly IInterfaceSettingsProvider _interfaceSettingsProvider;
 
-        public DockingManagerImpl(ILayoutManager layoutManager)
+        public DockingManagerImpl(ILayoutManager layoutManager, IInterfaceSettingsProvider interfaceSettingsProvider)
         {
             _layoutManager = layoutManager;
+            _interfaceSettingsProvider = interfaceSettingsProvider;
         }
 
         public bool IsWindowOverAreaHotspot(WindowInformation window, out ActiveArea targetArea)
@@ -69,10 +73,14 @@ namespace Snapinator.Core
             _windowAttachments.Add(window, targetArea);
 
             // store previous dimensions
-            User32.RECT rect;
-            if (User32.GetWindowRect(window, out rect))
+            var rememberWindowDimensions = _interfaceSettingsProvider.GetSetting<bool>(InterfaceSettings.RememberWindowDimensions);
+            if (rememberWindowDimensions)
             {
-                _preDockWindowDimensions.Add(window, rect);
+                User32.RECT rect;
+                if (User32.GetWindowRect(window, out rect))
+                {
+                    _preDockWindowDimensions.Add(window, rect);
+                }
             }
 
             // resize window to match our area dimensions

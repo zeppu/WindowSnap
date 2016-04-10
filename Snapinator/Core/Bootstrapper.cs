@@ -146,7 +146,10 @@ namespace Snapinator.Core
             c.RegisterSingleton<IWinEventHookManager, WinEventHookManager>();
 
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
-            c.RegisterSingleton<IConfigurationService, ConfigurationService>();
+
+            var configurationServiceActivator = Lifestyle.Singleton.CreateRegistration<ConfigurationService>(c);
+            c.AddRegistration(typeof(IConfigurationService), configurationServiceActivator);
+            c.AddRegistration(typeof(IInterfaceSettingsProvider), configurationServiceActivator);
 
             var layoutManagerActivator = Lifestyle.Singleton.CreateRegistration<LayoutManagerImpl>(c);
             c.AddRegistration(typeof(ILayoutManager), layoutManagerActivator);
@@ -169,6 +172,7 @@ namespace Snapinator.Core
 
         public void Dispose()
         {
+            _container.Get<IConfigurationService>().SaveConfiguration();
             _container.Dispose();
         }
     }

@@ -27,7 +27,8 @@
             </Grid>
             <CheckBox Margin="2,4"  IsChecked="{Binding Path=AutostartOnLogon}"><TextBlock Text="Run Snapinator at Windows Startup (current user only)" /></CheckBox>
             <CheckBox Margin="2,4"  IsChecked="{Binding Path=CheckForUpdates}"><TextBlock Text="Check for updates" /></CheckBox>
-            <CheckBox Margin="2,4"  IsChecked="{Binding Path=RememberLastWindowDockingZone}"><TextBlock Text="Remember window's last docking zone" /></CheckBox>
+            <CheckBox Margin="2,4"  IsChecked="{Binding Path=RememberWindowDockingZone}"><TextBlock Text="Remember window's last docking zone" /></CheckBox>
+            <CheckBox Margin="2,4"  IsChecked="{Binding Path=RememberWindowDimensions}"><TextBlock Text="Remember window's dimensions before docking" /></CheckBox>
         </StackPanel>
     </Grid>
 </UserControl>
