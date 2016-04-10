@@ -151,6 +151,9 @@ namespace Snapinator.Core
             if (IsWindowInExclusionList(window))
                 return;
 
+            if (message.IsWindowResize)
+                return;
+
             if (IsWindowDocked(message.TargetWindowHandle))
             {
                 LogTo.Info($"Undocking window [{message.TargetWindowHandle}]");

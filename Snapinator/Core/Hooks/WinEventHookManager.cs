@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using ReactiveUI;
 using Snapinator.Messages;
 using Snapinator.Native;
@@ -11,6 +12,7 @@ namespace Snapinator.Core.Hooks
         private IntPtr _hhookend;
         private readonly User32.WinEventDelegate _endMoveDelegate;
         private readonly User32.WinEventDelegate _startMoveDelegate;
+        private User32.RECT _currentWindowRect;
 
         public WinEventHookManager()
         {
@@ -35,13 +37,31 @@ namespace Snapinator.Core.Hooks
 
         private void WindowDragBegin(IntPtr hWinEventHook, uint eventType, IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
+            User32.GetWindowRect(hwnd, out _currentWindowRect);
+
             MessageBus.Current.SendMessage(new StartingWindowDrag(hwnd));
         }
 
         private void WindowDragEnd(IntPtr hWinEventHook, uint eventType,
             IntPtr hwnd, int idObject, int idChild, uint dwEventThread, uint dwmsEventTime)
         {
-            MessageBus.Current.SendMessage(new EndingWindowDrag(hwnd));
+            User32.RECT newRect;
+            User32.GetWindowRect(hwnd, out newRect);
+
+            var prevRectangle = (Rectangle)_currentWindowRect;
+            var newRectangle = (Rectangle)newRect;
+
+            var prevArea = prevRectangle.Width * prevRectangle.Height;
+            var newArea = newRectangle.Width * newRectangle.Height;
+
+            if (prevArea == newArea)
+            {
+                MessageBus.Current.SendMessage(new EndingWindowDrag(hwnd, false));
+            }
+            else
+            {
+                MessageBus.Current.SendMessage(new EndingWindowDrag(hwnd, true));
+            }
         }
     }
 }
