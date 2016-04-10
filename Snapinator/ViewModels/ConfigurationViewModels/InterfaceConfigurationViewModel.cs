@@ -16,5 +16,8 @@ namespace Snapinator.ViewModels.ConfigurationViewModels
 
         [Reactive]
         public bool CheckForUpdates { get; set; }
+
+        [Reactive]
+        public bool RememberLastWindowDockingZone { get; set; }
     }
 }

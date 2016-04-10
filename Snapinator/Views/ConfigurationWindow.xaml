@@ -27,6 +27,13 @@
                     </DataTemplate>
                 </core:DataTemplateMapping.Template>
             </core:DataTemplateMapping>
+            <core:DataTemplateMapping ViewModelType="configurationViewModels:IntegrationConfigurationViewModel">
+                <core:DataTemplateMapping.Template>
+                    <DataTemplate>
+                        <views:IntegrationConfigurationView></views:IntegrationConfigurationView>
+                    </DataTemplate>
+                </core:DataTemplateMapping.Template>
+            </core:DataTemplateMapping>
         </core:ViewModelSelector>
 
 

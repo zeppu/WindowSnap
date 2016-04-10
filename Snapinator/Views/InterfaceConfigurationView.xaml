@@ -15,8 +15,19 @@
                     <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                 </Style>
             </StackPanel.Resources>
+            <Grid Grid.Row="1" Margin="4,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="General" FontWeight="Bold"></TextBlock>
+                <Rectangle Grid.Column="2" Fill="{StaticResource BrownishBrush}" Height="1"></Rectangle>
+            </Grid>
             <CheckBox Margin="2,4"  IsChecked="{Binding Path=AutostartOnLogon}"><TextBlock Text="Run Snapinator at Windows Startup (current user only)" /></CheckBox>
             <CheckBox Margin="2,4"  IsChecked="{Binding Path=CheckForUpdates}"><TextBlock Text="Check for updates" /></CheckBox>
+            <CheckBox Margin="2,4"  IsChecked="{Binding Path=RememberLastWindowDockingZone}"><TextBlock Text="Remember window's last docking zone" /></CheckBox>
         </StackPanel>
     </Grid>
 </UserControl>

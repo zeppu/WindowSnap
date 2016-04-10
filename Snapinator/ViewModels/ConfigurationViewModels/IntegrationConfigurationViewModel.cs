@@ -1,4 +1,6 @@
-﻿using ReactiveUI;
+﻿using System.Windows.Input;
+using ReactiveUI;
+using ReactiveUI.Fody.Helpers;
 
 namespace Snapinator.ViewModels.ConfigurationViewModels
 {
@@ -17,17 +19,23 @@ namespace Snapinator.ViewModels.ConfigurationViewModels
 
         public IReadOnlyReactiveList<KeyboardShortcutViewModel> KeyboardShortcuts { get; }
 
+        [Reactive]
+        public KeyboardShortcutViewModel SelectedKeyboardShortcut { get; set; }
+
         public IntegrationConfigurationViewModel()
         {
             KeyboardShortcuts = new ReactiveList<KeyboardShortcutViewModel>()
             {
                 new KeyboardShortcutViewModel("Bring docked windows in front"),
-                new KeyboardShortcutViewModel("Auto dock top windows")
+                new KeyboardShortcutViewModel("Dock top most windows"),
+                new KeyboardShortcutViewModel("Dock top most window to primary docking zone"),
+                new KeyboardShortcutViewModel("Switch window to next docking zone"),
+                new KeyboardShortcutViewModel("Switch window to previous docking zone"),
             };
         }
     }
 
-    public class KeyboardShortcutViewModel
+    public class KeyboardShortcutViewModel : ReactiveObject
     {
         public KeyboardShortcutViewModel(string description)
         {
@@ -35,5 +43,23 @@ namespace Snapinator.ViewModels.ConfigurationViewModels
         }
 
         public string Description { get; }
+
+        [Reactive]
+        public Key Key { get; set; }
+
+        [ObservableAsProperty]
+        public string KeyAsString { get; set; }
+
+        [ObservableAsProperty]
+        public string FullHotkeyCombo { get; set; }
+
+        [Reactive]
+        public Key Modifier1 { get; set; }
+
+        [Reactive]
+        public Key Modifier2 { get; set; }
+
+        [Reactive]
+        public Key Modifier3 { get; set; }
     }
 }

@@ -184,6 +184,9 @@
     <Compile Include="Views\ConfigurationWindow.xaml.cs">
       <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IntegrationConfigurationView.xaml.cs">
+      <DependentUpon>IntegrationConfigurationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InterfaceConfigurationView.xaml.cs">
       <DependentUpon>InterfaceConfigurationView.xaml</DependentUpon>
     </Compile>
@@ -271,6 +274,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IntegrationConfigurationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
