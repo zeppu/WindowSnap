@@ -3,16 +3,30 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Snapinator.Core.Configuration;
 using Snapinator.Core.Configuration.Model;
+using Snapinator.Messages;
 
 namespace Snapinator.Core.LayoutManager
 {
-    class LayoutManagerImpl : ILayoutManager
+    class LayoutManagerImpl : ILayoutManager, IMessageHandler<SwitchLayoutMessage>
     {
+        private readonly IConfigurationService _configurationService;
         private readonly Dictionary<Screen, ActiveLayout> _activeLayouts = new Dictionary<Screen, ActiveLayout>();
+
+        public LayoutManagerImpl(IConfigurationService configurationService)
+        {
+            _configurationService = configurationService;
+        }
 
         public void ModifyLayout(Layout layout, Screen targetScreen)
         {
+            var activeLayoutInConf = _configurationService.GetActiveLayout();
+            activeLayoutInConf.IsActive = false;
+            layout.IsActive = true;
+
+            _configurationService.SaveConfiguration();
+
             // determine shape of layout
             ActiveLayout activeLayout = null;
             var columnLayout = layout as ColumnLayout;
@@ -95,6 +109,15 @@ namespace Snapinator.Core.LayoutManager
             }
 
             throw new InvalidOperationException();
+        }
+
+        public void HandleMessage(SwitchLayoutMessage message)
+        {
+            var layout = _configurationService.GetLayouts().FirstOrDefault(l => l.Name.Equals(message.TargetLayout));
+            if (layout == null)
+                return;
+
+            ModifyLayout(layout, Screen.PrimaryScreen);
         }
     }
 }

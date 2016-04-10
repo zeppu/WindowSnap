@@ -4,6 +4,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Forms;
 using ReactiveUI;
+using Snapinator.Core.Configuration;
+using Snapinator.Core.LayoutManager;
+using Snapinator.Messages;
 
 namespace Snapinator.Core.SystemTray
 {
@@ -15,11 +18,15 @@ namespace Snapinator.Core.SystemTray
         private static readonly MethodInfo SendMessageMethod;
 
         private readonly IServiceProvider _serviceProvider;
+        private readonly ILayoutManager _layoutManager;
+        private readonly IConfigurationService _configurationService;
 
         private readonly NotifyIcon _systemTrayIcon = new NotifyIcon()
         {
             ContextMenuStrip = new ContextMenuStrip()
         };
+
+        private readonly ToolStripMenuItem _switchLayoutMenuItem;
 
         #region ISystemTrayNotificationService
         public void ShowInformation(string message, string caption)
@@ -56,21 +63,50 @@ namespace Snapinator.Core.SystemTray
             SendMessageMethod = ((MethodCallExpression)SendMessageActionExpression.Body).Method.GetGenericMethodDefinition();
         }
 
-        public SystemTrayService(IServiceProvider serviceProvider)
+        public SystemTrayService(IServiceProvider serviceProvider, ILayoutManager layoutManager, IConfigurationService configurationService)
         {
 
             _serviceProvider = serviceProvider;
-            _systemTrayIcon.ContextMenuStrip.ItemClicked += (sender, args) =>
+            _layoutManager = layoutManager;
+            _configurationService = configurationService;
+            _systemTrayIcon.ContextMenuStrip.Opening += (sender, args) =>
             {
-                var metadata = (MenuItemCommandData)args.ClickedItem.Tag;
-
-                if (metadata == null)
-                    return;
-
-                var message = _serviceProvider.Get(metadata.MessageType);
-                var action = SendMessageMethod.MakeGenericMethod(metadata.MessageType);
-                action.Invoke(MessageBus.Current, new object[] { message, null });
+                _switchLayoutMenuItem.DropDownItems.Clear();
+                foreach (var layout in _configurationService.GetLayouts())
+                {
+                    var menuItem = CreateMenuItem(layout.DisplayName, null, new SwitchLayoutMessage()
+                    {
+                        TargetLayout = layout.Name
+                    });
+                    menuItem.Checked = layout.IsActive;
+                    _switchLayoutMenuItem.DropDownItems.Add(menuItem);
+                }
             };
+
+            _systemTrayIcon.ContextMenuStrip.ItemClicked += OnMenuItemClick;
+
+            _switchLayoutMenuItem = new ToolStripMenuItem
+            {
+                Text = "Switch",
+                DropDownItems = { new ToolStripMenuItem("") }
+            };
+            _systemTrayIcon.ContextMenuStrip.Items.Add(_switchLayoutMenuItem);
+            _switchLayoutMenuItem.DropDownItemClicked += OnMenuItemClick;
+        }
+
+        private void OnMenuItemClick(object sender, ToolStripItemClickedEventArgs args)
+        {
+            var metadata = (MenuItemCommandData)args.ClickedItem.Tag;
+
+            if (metadata == null)
+                return;
+
+            var message = metadata.Payload;
+            if (message == null)
+                message = _serviceProvider.Get(metadata.MessageType);
+
+            var action = SendMessageMethod.MakeGenericMethod(metadata.MessageType);
+            action.Invoke(MessageBus.Current, new[] { message, null });
         }
 
         public void Show()
@@ -94,7 +130,6 @@ namespace Snapinator.Core.SystemTray
                 {
                     _systemTrayIcon.Icon = new Icon(stream);
                 }
-
             }
             else
             {
@@ -105,20 +140,30 @@ namespace Snapinator.Core.SystemTray
 
         class MenuItemCommandData
         {
-            public MenuItemCommandData(Type messageType)
+            public MenuItemCommandData(Type messageType, object payload)
             {
                 MessageType = messageType;
+                Payload = payload;
             }
 
             public Type MessageType { get; }
+
+            public object Payload { get; }
         }
 
         public void AddMenuItem<TMessage>(string caption, Uri iconUri)
             where TMessage : class, new()
         {
+            ToolStripMenuItem item = CreateMenuItem<TMessage>(caption, iconUri);
+
+            _systemTrayIcon.ContextMenuStrip.Items.Add(item);
+        }
+
+        private static ToolStripMenuItem CreateMenuItem<TMessage>(string caption, Uri iconUri, TMessage payload = null) where TMessage : class, new()
+        {
             var item = new ToolStripMenuItem(caption)
             {
-                Tag = new MenuItemCommandData(typeof(TMessage))
+                Tag = new MenuItemCommandData(typeof(TMessage), payload)
             };
 
             if (iconUri != null)
@@ -131,7 +176,7 @@ namespace Snapinator.Core.SystemTray
                 }
             }
 
-            _systemTrayIcon.ContextMenuStrip.Items.Add(item);
+            return item;
         }
 
         public void AddSeperator()

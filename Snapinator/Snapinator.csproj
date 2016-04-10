@@ -156,6 +156,7 @@
     <Compile Include="Messages\ShowAboutBoxMessage.cs" />
     <Compile Include="Messages\ShowConfigurationMessage.cs" />
     <Compile Include="Messages\StartingWindowDrag.cs" />
+    <Compile Include="Messages\SwitchLayoutMessage.cs" />
     <Compile Include="Messages\TerminateAppMessage.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\ModifierKeys.cs" />

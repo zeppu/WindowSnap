@@ -69,6 +69,12 @@ namespace Snapinator.Core
                     HandleMessage(c, message);
                 });
 
+            MessageBus.Current.Listen<SwitchLayoutMessage>()
+                .Subscribe(message =>
+                {
+                    HandleMessage(c, message);
+                });
+
             // setup hooks
             LogTo.Info("Registering win event hooks ...");
             c.Get<IWinEventHookManager>().Start();
@@ -141,15 +147,22 @@ namespace Snapinator.Core
 
             c.RegisterSingleton<IHotkeyManger, HotkeyManager>();
             c.RegisterSingleton<IConfigurationService, ConfigurationService>();
-            c.RegisterSingleton<ILayoutManager, LayoutManagerImpl>();
+
+            var layoutManagerActivator = Lifestyle.Singleton.CreateRegistration<LayoutManagerImpl>(c);
+            c.AddRegistration(typeof(ILayoutManager), layoutManagerActivator);
+
 
             var commonMessageHandlers = new[]
             {
                 Lifestyle.Singleton.CreateRegistration<OverlayManagerImpl>(c),
-                Lifestyle.Singleton.CreateRegistration<DockingManagerImpl>(c)
+                Lifestyle.Singleton.CreateRegistration<DockingManagerImpl>(c),
             };
             c.RegisterCollection<IMessageHandler<StartingWindowDrag>>(commonMessageHandlers);
             c.RegisterCollection<IMessageHandler<EndingWindowDrag>>(commonMessageHandlers);
+            c.RegisterCollection<IMessageHandler<SwitchLayoutMessage>>(new[]
+            {
+                layoutManagerActivator
+            });
 
             return c;
         }
